@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="listener"
+            type="com.bpositive.technician.homeDetail.view.recyclerView.HomeDetailAdapter.HomeDetailListener" />
+
+        <variable
+            name="homeDetail"
+            type="com.bpositive.technician.homeDetail.model.Details" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--<com.google.android.material.button.MaterialButton
+            android:id="@+id/btnContribute"
+            style="@style/ButtonHomeDetailAmount"
+            android:backgroundTint="@color/dark_green"
+            android:onClick="@{() -> listener.onContributeClicked(homeDetail)}"
+            android:text="@string/action_contribute"
+            android:textAllCaps="false"
+            app:cornerRadius="@dimen/spacing_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRequiredBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:text="@{homeDetail.requiredAmount + ' ' + homeDetail.currencyCode}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_12"
+            app:layout_constraintBottom_toBottomOf="@+id/pbRequiredAmount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pbRequiredAmount"
+            tools:text="5600 sdg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRaisedBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{homeDetail.raisedAmount + ' ' + homeDetail.currencyCode}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_12"
+            app:layout_constraintBottom_toBottomOf="@+id/pbRaisedAmount"
+            app:layout_constraintStart_toStartOf="@+id/tvRequiredBalance"
+            app:layout_constraintTop_toTopOf="@+id/pbRaisedAmount"
+            tools:text="3200 sdg" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBalanceBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{homeDetail.balanceAmount + ' ' + homeDetail.currencyCode}"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_12"
+            app:layout_constraintBottom_toBottomOf="@+id/pbBalanceAmount"
+            app:layout_constraintStart_toStartOf="@+id/tvRequiredBalance"
+            app:layout_constraintTop_toTopOf="@+id/pbBalanceAmount"
+            tools:text="2400 sdg" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="tvRequiredBalance,tvRaisedBalance,tvBalanceBalance" />
+
+        <ProgressBar
+            android:id="@+id/pbRequiredAmount"
+            style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_tiny"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:progress="100"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:progressTint="@color/dark_blue"
+            android:scaleX="-1"
+            app:layout_constraintEnd_toStartOf="@id/tvRequiredAmount"
+            app:layout_constraintStart_toEndOf="@+id/barrier"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:progress="100" />
+
+        <ProgressBar
+            android:id="@+id/pbRaisedAmount"
+            style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layoutDirection="rtl"
+            app:custom_progress="@{homeDetail.requiredAmount}"
+            app:balanceAmount="@{homeDetail.raisedAmount}"
+            app:raisedAmount="@{homeDetail.balanceAmount}"
+            app:isBalance="@{false}"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:progressTint="@color/dark_red"
+            app:layout_constraintEnd_toEndOf="@+id/pbRequiredAmount"
+            app:layout_constraintStart_toStartOf="@id/pbRequiredAmount"
+            app:layout_constraintTop_toBottomOf="@id/pbRequiredAmount"
+            tools:progress="80" />
+
+        <ProgressBar
+            android:id="@+id/pbBalanceAmount"
+            style="@android:style/Widget.Holo.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layoutDirection="rtl"
+            app:custom_progress="@{homeDetail.requiredAmount}"
+            app:balanceAmount="@{homeDetail.raisedAmount}"
+            app:raisedAmount="@{homeDetail.balanceAmount}"
+            app:isBalance="@{true}"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:progressTint="@color/dark_green"
+            app:layout_constraintEnd_toEndOf="@+id/pbRequiredAmount"
+            app:layout_constraintStart_toStartOf="@id/pbRequiredAmount"
+            app:layout_constraintTop_toBottomOf="@id/pbRaisedAmount"
+            tools:progress="50" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/guidLineEnd"
+            android:layout_marginEnd="@dimen/spacing_large"
+            android:layout_marginStart="@dimen/spacing_large"
+            app:layout_constraintGuide_percent="0.8"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRequiredAmount"
+            style="@style/TextViewHomeDetailAmount"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:paddingEnd="@dimen/spacing_medium"
+            android:paddingStart="@dimen/spacing_2"
+            android:text="@string/label_required_amount"
+            android:textColor="@color/dark_blue"
+            app:layout_constraintBottom_toBottomOf="@+id/pbRequiredAmount"
+            app:layout_constraintStart_toEndOf="@+id/guidLineEnd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pbRequiredAmount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvRaisedAmount"
+            style="@style/TextViewHomeDetailAmount"
+            android:text="@string/label_raised_amount"
+            android:textColor="@color/dark_red"
+            app:layout_constraintBottom_toBottomOf="@+id/pbRaisedAmount"
+            app:layout_constraintStart_toStartOf="@+id/tvRequiredAmount"
+            app:layout_constraintTop_toTopOf="@+id/pbRaisedAmount" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBalanceAmount"
+            style="@style/TextViewHomeDetailAmount"
+            android:text="@string/label_balance_amount"
+            android:textColor="@color/dark_green"
+            app:layout_constraintBottom_toBottomOf="@+id/pbBalanceAmount"
+            app:layout_constraintStart_toStartOf="@+id/tvRaisedAmount"
+            app:layout_constraintTop_toTopOf="@+id/pbBalanceAmount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

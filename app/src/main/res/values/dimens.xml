@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="toolbar">56dp</dimen>
+    <dimen name="home_top">50dp</dimen>
+    <dimen name="app_bar_height">256dp</dimen>
+
+    <dimen name="spacing_2">2dp</dimen>
+    <dimen name="spacing_tiny">4dp</dimen>
+    <dimen name="spacing_small">8dp</dimen>
+    <dimen name="spacing_normal">16dp</dimen>
+    <dimen name="spacing_medium">24dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_extra_large">64dp</dimen>
+
+    <dimen name="size_10">18sp</dimen>
+    <dimen name="size_12">20sp</dimen>
+    <dimen name="size_16">24sp</dimen>
+    <dimen name="size_18">36sp</dimen>
+
+
+    <dimen name="specing">1sp</dimen>
+    <dimen name="pad_5">5dp</dimen>
+    <dimen name="pad_15">15dp</dimen>
+    <dimen name="pad_10">10dp</dimen>
+
+    <dimen name="divide_view">1dp</dimen>
+    <dimen name="header_img_width">120dp</dimen>
+    <dimen name="header_img_height">120dp</dimen>
+    <dimen name="btn_corner_radius">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="text_tab">22sp</dimen>
+    <dimen name="text_view">26sp</dimen>
+    <dimen name="text_item">20sp</dimen>
+    <dimen name="text_menu">30sp</dimen>
+    <dimen name="edit_text">22sp</dimen>
+    <dimen name="buttons">24sp</dimen>
+
+</resources>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="languageModel"
+            type="com.bpositive.technician.language.viewModel.LanguageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".technician.language.view.LanguageFragment"
+        android:background="@color/bg_color">
+
+        <com.bpositive.technician.core.widget.MvvmImageView
+            android:id="@+id/logo_img"
+            android:layout_width="@dimen/header_img_width"
+            android:layout_height="@dimen/header_img_height"
+            android:layout_marginTop="@dimen/toolbar"
+            android:src="@drawable/ic_about_us"
+            app:layout_constraintBottom_toTopOf="@+id/label_select_lang_txt"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.bpositive.technician.core.widget.MvvmTextView
+            android:id="@+id/label_select_lang_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textSize="@dimen/text_view"
+            android:gravity="center"
+            android:text="Select your default language"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/language_recycler_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:items="@{languageModel.langList}"
+            android:layout_marginTop="24dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/label_select_lang_txt"
+            tools:listitem="@layout/item_language_selection" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

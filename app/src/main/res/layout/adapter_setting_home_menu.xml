@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="position"
+            type="int"/>
+
+        <variable
+            name="adapterSettingsMenuItem"
+            type="com.bpositive.technician.settings.model.SettingMenus.Details" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@color/dark_blue">
+
+        <ImageView
+            android:id="@+id/menuSelect"
+            android:layout_width="@dimen/pad_15"
+            android:layout_height="@dimen/pad_15"
+            android:layout_gravity="right"
+            android:layout_margin="5dp"
+            app:srcStaticCheckBox="@{adapterSettingsMenuItem.selected}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:imageUrl="@{adapterSettingsMenuItem.domain_image}" />
+
+            <com.bpositive.technician.core.widget.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:paddingLeft="05dp"
+                android:paddingRight="05dp"
+                android:gravity="center"
+                android:text="@{adapterSettingsMenuItem.domain_name}"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/rightSideDividerView"
+            android:layout_width=".5dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:layout_marginTop="@dimen/pad_10"
+            android:layout_marginBottom="@dimen/pad_10"
+            android:background="@color/light_blue" />
+
+        <View
+            android:id="@+id/bottomDividerView"
+            android:layout_width="match_parent"
+            android:layout_height=".5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/pad_10"
+            android:layout_marginRight="@dimen/pad_10"
+            android:background="@color/light_blue" />
+
+    </FrameLayout>
+</layout>
+
+

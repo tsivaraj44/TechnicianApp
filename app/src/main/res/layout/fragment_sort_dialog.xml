@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/viewBar"
+        android:layout_width="@dimen/spacing_extra_large"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/spacing_tiny"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvTitleFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_small"
+        android:text="@string/label_title_sort"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_16"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/viewBar" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortCaseNumberAsc"
+        style="@style/TextViewSortFilter"
+        android:drawableStart="@drawable/ic_case_number_ascending"
+        android:text="Case number by ascending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleFilter" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortCaseNumberDesc"
+        style="@style/TextViewSortFilter"
+        android:drawableStart="@drawable/ic_case_number_descending"
+        android:text="Case number by descending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortCaseNumberAsc" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortDateAsc"
+        style="@style/TextViewSortFilter"
+        android:drawableStart="@drawable/ic_create_date_ascending"
+        android:text="Created date by ascending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortCaseNumberDesc" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvSortDateDesc"
+        style="@style/TextViewSortFilter"
+        android:drawableStart="@drawable/ic_create_date_descending"
+        android:text="Created date by descending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortDateAsc" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRequiredAmountAsc"
+        style="@style/TextViewSortFilter"
+        android:drawableStart="@drawable/ic_required_amount_ascending"
+        android:text="Required amount by ascending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSortDateDesc" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvRequiredAmountDesc"
+        style="@style/TextViewSortFilter"
+        android:drawableStart="@drawable/ic_required_amount_descending"
+        android:text="Required amount by descending"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRequiredAmountAsc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.bpositive.technician.splash.view.SplashFragment"
+        android:label="SplashFragment"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languageFragment"
+        android:name="com.bpositive.technician.language.view.LanguageFragment"
+        android:label="fragment_language"
+        tools:layout="@layout/fragment_language"/>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.bpositive.technician.home.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/homeDetailFragment"
+        android:name="com.bpositive.technician.homeDetail.view.HomeDetailFragment"
+        android:label="fragment_home_detail"
+        tools:layout="@layout/fragment_home_detail"/>
+    <fragment
+        android:id="@+id/caseDetailsFragment"
+        android:name="com.bpositive.technician.caseDetails.view.CaseDetailsFragment"
+        android:label="CaseDetailsFragment" />
+
+    <!--Menu-->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.bpositive.technician.myWorks.view.MyWorksFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.bpositive.technician.login.view.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/worksFragment"
+        android:name="com.bpositive.technician.myWorks.view.WorksFragment"
+        android:label="WorksFragment" />
+    <fragment
+        android:id="@+id/myWorkFragment"
+        android:name="com.bpositive.technician.myWorks.view.MyWorkFragment"
+        android:label="MyWorkFragment" />
+</navigation>

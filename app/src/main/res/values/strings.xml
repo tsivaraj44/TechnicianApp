@@ -1,0 +1,81 @@
+<resources>
+    <string name="app_name">Technician</string>
+    <string name="my_works">My Works</string>
+    <string name="settings">Settings</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="about_us">About Us</string>
+    <string name="login">Login</string>
+    <string name="registration">Registration</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="something_went_wrong">Something went wrong!</string>
+
+    <!--DrawerLayout-->
+    <string name="open_msg">open_msg</string>
+    <string name="close_msg">close_msg</string>
+
+    <string name="label_sort">Sort</string>
+    <string name="label_filter">Filter</string>
+    <string name="label_clear">Clear</string>
+    <string name="label_search">Search</string>
+    <string name="label_required_amount">Required Amount</string>
+    <string name="label_raised_amount">Raised Amount</string>
+    <string name="label_balance_amount">Balance Amount</string>
+    <string name="action_contribute">Contribute</string>
+    <string name="label_title_filter">Filter by</string>
+    <string name="label_title_sort">Sort by</string>
+    <string name="label_date">Date</string>
+    <string name="label_initiator">Initiator</string>
+    <string name="label_case_number">Case number</string>
+
+    <!--ravi-->
+    <string name="requiredAmount">Required Amount</string>
+    <string name="raisedAmount">Raised Amount</string>
+    <string name="balanceAmount">Balance Amount</string>
+    <string name="contribute">Contribute</string>
+
+    <string name="followers">Followers</string>
+    <string name="serialNo">SerialNo :</string>
+    <string name="defaultLanguage">Default Language</string>
+    <string name="save">Save</string>
+    <string name="home_page_customization">Home page customization</string>
+
+    <string name="action_filter">Filter</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_follow">Follow</string>
+
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="dont_have_account">I don\'t have an account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="mobile_or_email">Mobile No/Email</string>
+    <string name="password">Password</string>
+    <string name="enter_mobilno_or_email">Enter the Mobile No/Email</string>
+    <string name="enter_valid_mobilno_or_email">Enter valid Mobile No/Email</string>
+    <string name="enter_password">Enter the Password</string>
+
+
+    <!--Login dialog-->
+
+    <string name="proceed">Proceed</string>
+    <string name="kindly_sign_in">Sorry! you are ot signed in/signed up \n kindly sign in/Signup</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+    <string name="label_no_case">No case found</string>
+    <string name="label_no_domain">No domain found</string>
+
+    <string name="date_">Date :</string>
+    <string name="time_">Time :</string>
+
+</resources>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="caseDetailModel"
+            type="com.bpositive.technician.caseDetails.model.CaseDetailsModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--            <RelativeLayout-->
+        <!--                android:id="@+id/headerLayout"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="210dp"-->
+        <!--                android:background="@color/dark_blue"-->
+        <!--                app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent">-->
+
+        <!--                <androidx.appcompat.widget.AppCompatImageView-->
+        <!--                    android:id="@+id/backArrow"-->
+        <!--                    android:layout_width="20dp"-->
+        <!--                    android:layout_height="20dp"-->
+        <!--                    android:layout_marginLeft="@dimen/pad_15"-->
+        <!--                    android:layout_marginTop="@dimen/pad_15"-->
+        <!--                    android:src="@drawable/ic_arrow_back" />-->
+
+        <!--                <androidx.appcompat.widget.AppCompatImageView-->
+        <!--                    android:id="@+id/headerImages"-->
+        <!--                    android:layout_width="70dp"-->
+        <!--                    android:layout_height="70dp"-->
+        <!--                    android:layout_alignParentRight="true"-->
+        <!--                    android:layout_marginTop="@dimen/pad_15"-->
+        <!--                    android:layout_marginRight="@dimen/pad_15" />-->
+
+        <!--                <androidx.appcompat.widget.AppCompatImageView-->
+        <!--                    android:id="@+id/userImage"-->
+        <!--                    android:layout_width="100dp"-->
+        <!--                    android:layout_height="100dp"-->
+        <!--                    android:layout_centerHorizontal="true"-->
+        <!--                    android:layout_marginTop="50dp"-->
+        <!--                    android:background="@drawable/ic_circle_white"-->
+        <!--                    android:padding="2dp" />-->
+
+        <!--                <mvvmpatternttern.core.widget.CustomTextView-->
+        <!--                    android:id="@+id/nameTv"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_below="@+id/userImage"-->
+        <!--                    android:layout_centerHorizontal="true"-->
+        <!--                    android:layout_marginTop="@dimen/pad_10"-->
+        <!--                    android:textColor="@color/white"-->
+        <!--                    android:textStyle="bold"-->
+        <!--                    tools:text="@string/requiredAmount" />-->
+
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_below="@+id/nameTv"-->
+        <!--                    android:layout_marginTop="5dp"-->
+        <!--                    android:layout_marginBottom="5dp"-->
+        <!--                    android:gravity="center"-->
+        <!--                    android:orientation="horizontal">-->
+
+        <!--                    <mvvmpatternttern.core.widget.CustomTextView-->
+        <!--                        android:id="@+id/followersTv"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:layout_gravity="center"-->
+        <!--                        android:textColor="@color/white" />-->
+
+        <!--                    <androidx.appcompat.widget.AppCompatImageView-->
+        <!--                        android:id="@+id/followersIcon"-->
+        <!--                        android:layout_width="20dp"-->
+        <!--                        android:layout_height="20dp"-->
+        <!--                        android:layout_marginLeft="05dp"-->
+        <!--                        android:src="@drawable/ic_details_page_follow" />-->
+        <!--                </LinearLayout>-->
+        <!--            </RelativeLayout>-->
+
+        <com.bpositive.technician.core.widget.CustomTextView
+            android:id="@+id/serialNumberTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_blue"
+            android:gravity="center"
+            android:padding="@dimen/pad_10"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/view1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/serialNumberTv">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/pad_10"
+                android:paddingRight="@dimen/pad_10">
+
+                <RelativeLayout
+                    android:id="@+id/progressLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/pad_15"
+                    android:paddingBottom="@dimen/pad_15">
+
+                    <LinearLayout
+                        android:id="@+id/requiredLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.bpositive.technician.core.widget.CustomTextView
+                            android:id="@+id/requiredAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".4"
+                            android:gravity="right"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+
+                        <ProgressBar
+                            android:id="@+id/requiredProgressBar"
+                            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/pad_10"
+                            android:layout_marginRight="@dimen/pad_10"
+                            android:layout_weight="1"
+                            android:indeterminate="false"
+                            android:layoutDirection="rtl"
+                            android:progress="100"
+                            android:progressDrawable="@drawable/custom_progress_bar"
+                            android:progressTint="@color/dark_blue" />
+
+                        <com.bpositive.technician.core.widget.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".6"
+                            android:gravity="center_vertical"
+                            android:text="@string/requiredAmount"
+                            android:textColor="@color/dark_blue"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/raisedLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/requiredLayout"
+                        android:layout_marginTop="@dimen/pad_5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.bpositive.technician.core.widget.CustomTextView
+                            android:id="@+id/raisedAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".4"
+                            android:gravity="right"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+
+                        <ProgressBar
+                            android:id="@+id/raisedProgressBar"
+                            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/pad_10"
+                            android:layout_marginRight="@dimen/pad_10"
+                            android:layout_weight="1"
+                            android:indeterminate="false"
+                            android:layoutDirection="rtl"
+                            android:progressDrawable="@drawable/custom_progress_bar"
+                            android:progressTint="@color/dark_red"
+                            tools:progress="50" />
+
+                        <com.bpositive.technician.core.widget.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".6"
+                            android:gravity="center_vertical"
+                            android:text="@string/raisedAmount"
+                            android:textColor="@color/appRed"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/balanceLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/raisedLayout"
+                        android:layout_marginTop="@dimen/pad_5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <com.bpositive.technician.core.widget.CustomTextView
+                            android:id="@+id/balanceAmount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".4"
+                            android:gravity="right"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"/>
+
+                        <ProgressBar
+                            android:id="@+id/balanceProgressBar"
+                            style="@android:style/Widget.Holo.Light.ProgressBar.Horizontal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/pad_10"
+                            android:layout_marginRight="@dimen/pad_10"
+                            android:layout_weight="1"
+                            android:indeterminate="false"
+                            android:layoutDirection="rtl"
+                            android:max="1000"
+                            android:mirrorForRtl="true"
+                            android:progress="300"
+                            android:progressDrawable="@drawable/custom_progress_bar"
+                            android:progressTint="@color/black" />
+
+                        <com.bpositive.technician.core.widget.CustomTextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".6"
+                            android:gravity="center_vertical"
+                            android:text="@string/balanceAmount"
+                            android:textColor="@color/appGreen"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/progressLayout"
+                    android:background="@color/appGray" />
+
+                <com.bpositive.technician.core.widget.CustomTextView
+                    android:id="@+id/descriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view4"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="@dimen/pad_15"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="@dimen/pad_15"
+                    android:textColor="@color/appTextColorBlack"
+                    android:textSize="22sp" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/descriptionText"
+                    android:background="@color/appGray" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/attachmentList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view3" />
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/pad_10"
+            android:layout_marginRight="@dimen/pad_10"
+            android:background="@color/appGray"
+            app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <RelativeLayout
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingLeft="@dimen/pad_10"
+            android:paddingRight="@dimen/pad_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <LinearLayout
+                android:id="@+id/bottomInfoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="@dimen/pad_10"
+                android:paddingBottom="@dimen/pad_10">
+
+                <com.bpositive.technician.core.widget.CustomTextView
+                    android:id="@+id/serialNumber1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/appTextColorBlack"
+                    android:textSize="20sp" />
+
+                <com.bpositive.technician.core.widget.CustomTextView
+                    android:id="@+id/dateTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textColor="@color/appTextColorBlack"
+                    android:textSize="20sp" />
+
+                <com.bpositive.technician.core.widget.CustomTextView
+                    android:id="@+id/timeTv"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".7"
+                    android:gravity="right|center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="2dp"
+                        android:src="@drawable/ic_view" />
+
+                    <com.bpositive.technician.core.widget.CustomTextView
+                        android:id="@+id/viewers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="right"
+                        android:textColor="@color/appTextColorBlack"
+                        android:textSize="20sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_below="@+id/bottomInfoLayout"
+                android:background="@color/appGray" />
+
+            <com.bpositive.technician.core.widget.CustomTextView
+                android:id="@+id/contributeTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/pad_10"
+                android:layout_marginBottom="@dimen/pad_10"
+                android:background="@drawable/ic_shape_rectangle_green"
+                android:drawableStart="@drawable/ic_contribute"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/pad_15"
+                android:paddingTop="5dp"
+                android:paddingRight="@dimen/pad_15"
+                android:paddingBottom="5dp"
+                android:text="@string/contribute"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_item"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

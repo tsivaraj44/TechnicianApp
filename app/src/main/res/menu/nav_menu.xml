@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_my_works"
+        android:title="@string/my_works"
+        android:icon="@drawable/ic_menu_camera"/>
+
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="@string/settings"
+        android:icon="@drawable/ic_setting"/>
+
+    <item
+        android:id="@+id/menu_contact_us"
+        android:title="@string/contact_us"
+        android:icon="@drawable/ic_contact_us"/>
+
+    <item
+        android:id="@+id/menu_about_us"
+        android:title="@string/about_us"
+        android:icon="@drawable/ic_about_us"/>
+
+    <item
+        android:id="@+id/loginFragment"
+        android:title="@string/login"
+        android:icon="@drawable/ic_registration"/>
+
+</menu>

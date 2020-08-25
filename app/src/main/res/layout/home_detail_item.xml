@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="HomeDetailItemBinding">
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="homeDetail"
+            type="com.bpositive.technician.homeDetail.model.Details" />
+
+        <variable
+            name="listener"
+            type="com.bpositive.technician.homeDetail.view.recyclerView.HomeDetailAdapter.HomeDetailListener" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:layout_marginBottom="@dimen/spacing_normal"
+        android:background="@color/transparent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_normal"
+            app:cardCornerRadius="@dimen/spacing_tiny"
+            app:cardElevation="@dimen/spacing_tiny">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivProfileImage"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        app:load_pic="@{homeDetail.initiatorImage}" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDoctorName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/spacing_tiny"
+                        android:paddingEnd="@dimen/spacing_tiny"
+                        android:text="@{homeDetail.initiatiorName}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_item"
+                        tools:text="Dr.Ahamed" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvFollower"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_small"
+                        android:gravity="center"
+                        android:paddingStart="@dimen/spacing_tiny"
+                        android:paddingEnd="@dimen/spacing_tiny"
+                        android:text="@{homeDetail.followCount + ` Followers`}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/size_12"
+                        tools:text="5664 Follower" />
+
+                    <!--android:onClick="@{() -> listener.onContributeClicked(3, homeDetail)}"-->
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvFollow"
+                        style="@style/ButtonHomeDetailAmount"
+                        android:layout_marginBottom="@dimen/spacing_tiny"
+                        android:background="@drawable/ic_shape_rectangle_green"
+                        android:backgroundTint="@color/colorAccent"
+                        android:drawableEnd="@drawable/ic_details_page_follow"
+                        android:drawablePadding="5dp"
+                        android:onClick="@{() -> listener.onContributeClicked(1, homeDetail)}"
+                        android:text="@string/action_follow"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvContribute"
+                        style="@style/ButtonHomeDetailAmount"
+                        android:background="@drawable/ic_shape_rectangle_green"
+                        android:backgroundTint="@color/appGreen"
+                        android:drawableStart="@drawable/ic_contribute"
+                        android:drawablePadding="5dp"
+                        android:onClick="@{() -> listener.onContributeClicked(1, homeDetail)}"
+                        android:text="@string/contribute"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/grey" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/ilProgress"
+                        layout="@layout/progresses_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_tiny"
+                        android:layout_marginEnd="@dimen/spacing_tiny"
+                        app:homeDetail="@{homeDetail}"
+                        app:listener="@{listener}" />
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/spacing_tiny"
+                        android:background="@color/grey" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_tiny"
+                        android:layout_marginEnd="@dimen/spacing_tiny"
+                        android:maxLines="5"
+                        android:onClick="@{() -> listener.onContributeClicked(2, homeDetail)}"
+                        android:text="@{homeDetail.caseDescription}"
+                        tools:text="Next we need to set the direction for the Barrier. In our case we want to position the Barrier relative to the End of either textView1 or textView2 depending on whichever is the larger, so we need to specify a direction of end" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_tiny"
+                        android:layout_marginTop="@dimen/spacing_2"
+                        android:layout_marginBottom="@dimen/spacing_2">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvSerialNo"
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight=".5"
+                            android:text="@{`Serial No ` + homeDetail.nationalNumber}"
+                            tools:text="Serial No 20026" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvDate"
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight=".5"
+                            android:text="@{`Date ` + homeDetail.date}"
+                            tools:text="Date 2020/03/05" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/spacing_tiny"
+                        android:layout_marginTop="@dimen/spacing_2"
+                        android:layout_marginBottom="@dimen/spacing_2">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTime"
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight=".5"
+                            android:text="@{`Time ` + homeDetail.time}"
+                            tools:text="Time 12:20:26" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvViews"
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight=".5"
+                            android:drawableStart="@drawable/icon_view"
+                            android:gravity="center_vertical"
+                            android:text="@{homeDetail.views.toString()}"
+                            tools:text="1224" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <!--<androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/spacing_2"
+                        android:weightSum="4">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight="1"
+                            android:visibility="invisible"
+                            android:text="@{`Serial No ` + homeDetail.nationalNumber}"
+                            tools:text="Serial No 20026" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight="1"
+                            android:visibility="invisible"
+                            android:text="@{`Date ` + homeDetail.date}"
+                            tools:text="Date 2020/03/05" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight="1"
+                            android:visibility="invisible"
+                            android:text="@{`Time ` + homeDetail.time}"
+                            tools:text="Time 12:20:26" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            style="@style/TextViewHomeDetailExtra"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/icon_view"
+                            android:gravity="start|center_vertical"
+                            android:paddingStart="@dimen/spacing_normal"
+                            android:visibility="invisible"
+                            android:text="@{homeDetail.views.toString()}"
+                            tools:text="1224" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>-->
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="2dp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

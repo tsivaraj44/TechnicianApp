@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".technician.homeDetail.view.HomeDetailFragment">
+
+    <data class="HomeDetailFragAdapter">
+
+        <import type="android.view.View" />
+
+        <variable
+            name="homeDetailModel"
+            type="com.bpositive.technician.homeDetail.viewModel.HomeDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_color">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/light_blue"
+            android:padding="@dimen/spacing_tiny"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSort"
+                style="@style/TextViewHomeDetailHeader"
+                android:drawableStart="@drawable/ic_sort"
+                android:drawablePadding="@dimen/spacing_tiny"
+                android:padding="@dimen/spacing_tiny"
+                android:text="@string/label_sort"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSearch"
+                style="@style/TextViewHomeDetailHeader"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/spacing_tiny"
+                android:padding="@dimen/spacing_tiny"
+                android:text="@string/label_search"
+                app:layout_constraintEnd_toStartOf="@+id/tvFilter"
+                app:layout_constraintStart_toEndOf="@+id/tvSort"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvFilter"
+                style="@style/TextViewHomeDetailHeader"
+                android:drawableStart="@drawable/ic_filter"
+                android:drawablePadding="@dimen/spacing_tiny"
+                android:padding="@dimen/spacing_tiny"
+                android:text="@string/label_filter"
+                app:layout_constraintEnd_toStartOf="@+id/tvClear"
+                app:layout_constraintStart_toEndOf="@+id/tvSearch"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvClear"
+                style="@style/TextViewHomeDetailHeader"
+                android:drawableStart="@drawable/ic_close"
+                android:drawablePadding="@dimen/spacing_tiny"
+                android:padding="@dimen/spacing_tiny"
+                android:text="@string/label_clear"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupNormalView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tvSort, tvSearch, tvFilter, tvClear" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupSearchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="acTvSearch, ivSearch" />
+
+            <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                android:id="@+id/acTvSearch"
+                style="@style/TextViewHomeDetailHeader"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/transparent"
+                android:completionThreshold="0"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/spacing_normal"
+                android:focusable="true"
+                android:hint="@string/label_search"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="@dimen/spacing_tiny"
+                android:paddingEnd="@dimen/spacing_tiny"
+                android:textColorHint="@color/light_grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivSearch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/spacing_tiny"
+                android:src="@drawable/icon_clear"
+                app:drawableTint="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/pbHomeDetailScroll"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="true"
+            android:visibility="@{homeDetailModel.isLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clHeader" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHomeDetail"
+            items="@{homeDetailModel.projectList}"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/spacing_small"
+            android:paddingTop="@dimen/spacing_normal"
+            android:paddingEnd="@dimen/spacing_small"
+            android:paddingBottom="@dimen/spacing_large"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/clHeader"
+            tools:itemCount="6"
+            tools:listitem="@layout/home_detail_item" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvNoCase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/size_12"
+            android:text="@string/label_no_case"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/clHeader" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

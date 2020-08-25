@@ -1,0 +1,167 @@
+{
+  "status": 1,
+  "message": "success all list views mock data",
+  "allDevices": [
+    {
+      "deviceId": "id_camera",
+      "deviceName": "Ongoing",
+      "deviceListViewItem": [
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Sony Laptop",
+          "deviceStatus": "Sony Vaio SVF1521ASNB",
+          "deviceStatusInfo": "15 Aug 2020 @ 10:30:00",
+          "deviceBtnActionMessage": "Working",
+          "deviceBtnActionType": "Working",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        }
+      ]
+    },
+    {
+      "deviceId": "id_lightpoles",
+      "deviceName": "Upcoming",
+      "deviceListViewItem": [
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "SAMSUNG TV",
+          "deviceStatus": "Samsung 50-inch LED Ultra HD",
+          "deviceStatusInfo": "10 Aug 2020 @ 16:30:00",
+          "deviceBtnActionMessage": "Start Service",
+          "deviceBtnActionType": "Start Service",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Sony Laptop",
+          "deviceStatus": "Sony Vaio SVF1521ASNB",
+          "deviceStatusInfo": "15 Aug 2020 @ 10:30:00",
+          "deviceBtnActionMessage": "Start Service",
+          "deviceBtnActionType": "Start Service",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Electrical Services",
+          "deviceStatus": "Usha Aerostyle 3 Blade (1200mm)",
+          "deviceStatusInfo": "15 Aug 2020 @ 12:30:00",
+          "deviceBtnActionMessage": "Start Service",
+          "deviceBtnActionType": "Start Service",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "SAMSUNG TV",
+          "deviceStatus": "Samsung 50-inch LED Ultra HD",
+          "deviceStatusInfo": "10 Aug 2020 @ 16:30:00",
+          "deviceBtnActionMessage": "Start Service",
+          "deviceBtnActionType": "Start Service",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Sony Laptop",
+          "deviceStatus": "Sony Vaio SVF1521ASNB",
+          "deviceStatusInfo": "15 Aug 2020 @ 10:30:00",
+          "deviceBtnActionMessage": "Start Service",
+          "deviceBtnActionType": "Start Service",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Electrical Services",
+          "deviceStatus": "Usha Aerostyle 3 Blade (1200mm)",
+          "deviceStatusInfo": "15 Aug 2020 @ 12:30:00",
+          "deviceBtnActionMessage": "Start Service",
+          "deviceBtnActionType": "Start Service",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        }
+      ]
+    },
+    {
+      "deviceId": "id_airquality_sensor",
+      "deviceName": "Completed",
+      "deviceListViewItem": [
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "AC",
+          "deviceStatus": "AC ",
+          "deviceStatusInfo": "10 Jun 2020 @ 16:30:00",
+          "deviceBtnActionMessage": "Completed",
+          "deviceBtnActionType": "Completed",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Sony Laptop",
+          "deviceStatus": "Sony Vaio SVF1521ASNB",
+          "deviceStatusInfo": "15 Jun 2020 @ 10:30:00",
+          "deviceBtnActionMessage": "Completed",
+          "deviceBtnActionType": "Completed",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Electrical Services",
+          "deviceStatus": "Usha Aerostyle 3 Blade (1200mm)",
+          "deviceStatusInfo": "15 Jun 2020 @ 12:30:00",
+          "deviceBtnActionMessage": "Completed",
+          "deviceBtnActionType": "Completed",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "SAMSUNG TV",
+          "deviceStatus": "Samsung 50-inch LED Ultra HD",
+          "deviceStatusInfo": "10 Jun 2020 @ 16:30:00",
+          "deviceBtnActionMessage": "Completed",
+          "deviceBtnActionType": "Completed",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Sony Laptop",
+          "deviceStatus": "Sony Vaio SVF1521ASNB",
+          "deviceStatusInfo": "15 Jun 2020 @ 10:30:00",
+          "deviceBtnActionMessage": "Completed",
+          "deviceBtnActionType": "Completed",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        },
+        {
+          "deviceId": "id_lightpoles",
+          "deviceLocation": "Electrical Services",
+          "deviceStatus": "Usha Aerostyle 3 Blade (1200mm)",
+          "deviceStatusInfo": "15 Jun 2020 @ 12:30:00",
+          "deviceBtnActionMessage": "Completed",
+          "deviceBtnActionType": "Completed",
+          "deviceImgUrl": "deviceImgUrl",
+          "deviceVideoUrl": "deviceVideoUrl",
+          "deviceMapNavigation": "deviceMapNavigation"
+        }
+      ]
+    }
+  ]
+}

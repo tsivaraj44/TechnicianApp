@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="android.view.View.OnClickListener" />
+
+        <variable
+            name="listener"
+            type="com.bpositive.technician.language.view.adapter.LanguageSelectedListener" />
+
+        <variable
+            name="languageModel"
+            type="com.bpositive.technician.language.model.LanguageData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:onClick="@{(view) -> listener.onLanguageSelected(languageModel)}"
+        android:orientation="vertical">
+
+        <com.bpositive.technician.core.widget.MvvmTextView
+            android:id="@+id/item_language_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="@{languageModel.langName}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="language item"
+            android:textSize="32sp"/>
+
+        <View
+            android:id="@+id/item_bottom_view"
+            android:layout_width="0dp"
+            android:layout_height="3dp"
+            android:background="@color/view_blue"
+            android:visibility="@{languageModel.showBottomLine? View.VISIBLE: View.GONE}"
+            app:layout_constraintEnd_toEndOf="@+id/item_language_txt"
+            app:layout_constraintStart_toStartOf="@+id/item_language_txt"
+            app:layout_constraintTop_toBottomOf="@+id/item_language_txt" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
