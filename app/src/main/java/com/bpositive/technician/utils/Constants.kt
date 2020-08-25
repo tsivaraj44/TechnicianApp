@@ -7,7 +7,17 @@ object Constants {
 
 object ApiConstants {
     const val INDEX = "index"
+    const val ALL_BOOKING_LIST = "all_bookings_list"
+    const val START_WORK = "start_work"
+    const val MOVE_TO_PENDING = "move_to_pending"
+    const val MOVE_COMPLETED = "work_completed"
+}
 
+object TravelStatus {
+    const val UP_COMING = 3
+    const val IN_PROGRESS = 4
+    const val PENDING = 5
+    const val COMPLETED = 1
 }
 
 object BundleConstants {

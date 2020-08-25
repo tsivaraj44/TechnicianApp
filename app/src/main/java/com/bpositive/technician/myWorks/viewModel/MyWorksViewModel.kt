@@ -1,75 +1,50 @@
 package com.bpositive.technician.myWorks.viewModel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.bpositive.technician.BaseViewModel
-import com.bpositive.technician.settings.model.LanguageModel
-import com.bpositive.technician.settings.model.SettingMenus
-import com.bpositive.technician.myWorks.service.repository.SettingRepository
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.bpositive.technician.core.NetworkManager
+import com.bpositive.technician.myWorks.model.request.MyWorkRequest
+import com.bpositive.technician.myWorks.model.request.StartWorkRequest
+import com.bpositive.technician.myWorks.model.response.MyWorkResponse
+import com.bpositive.technician.myWorks.model.response.StartWorkResponse
+import com.bpositive.technician.myWorks.service.MyWorkApi
+import com.bpositive.technician.myWorks.service.repository.IMyWorkRepository
+import com.bpositive.technician.utils.OnError
+import com.bpositive.technician.utils.OnSuccess
+import kotlinx.coroutines.launch
 
-class MyWorksViewModel : BaseViewModel() {
+class MyWorksViewModel(private val iMyWorkRepository: IMyWorkRepository) : ViewModel() {
 
-    val toastMessage = MutableLiveData<String>()
-
-    private var _dataLoading = MutableLiveData<Boolean>()
-
-    val isLoading: LiveData<Boolean> = _dataLoading
-
-    private var _languageList =
-        MutableLiveData<MutableList<LanguageModel>>().apply { value = mutableListOf() }
-
-    val languageList: MutableLiveData<MutableList<LanguageModel>>
-        get() = _languageList
-
-
-    private var _settingMenu =
-        MutableLiveData<List<SettingMenus.Details>>().apply { value = mutableListOf() }
-
-    val settingMenu: MutableLiveData<List<SettingMenus.Details>>
-        get() = _settingMenu
-
-
-    private val settingRepository by lazy {
-        SettingRepository()
+    fun getWorkList(
+        myWorkRequest: MyWorkRequest,
+        onSuccess: OnSuccess<MyWorkResponse>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            iMyWorkRepository.getWorkList(myWorkRequest, onSuccess, onError)
+        }
     }
 
-    override fun start() {
-//        _dataLoading.value = true
-//        settingRepository.getLanguageResponse(onSuccess = {
-//            _dataLoading.value = false
-//            _languageList = it as MutableLiveData<MutableList<LanguageModel>>
-//        }, onError = {
-//            _dataLoading.value = false
-//        })
-        _dataLoading.value = true
-
-        Log.i("_dataLoading", "--->>> " + _dataLoading.value)
-        settingRepository.onLoadSelectedMenuItems(onSuccess = {
-            //   _dataLoading.value = false
-            Log.i("_dataLoading", "--->>> " + _dataLoading.value)
-            _settingMenu.value = it.details
-        }, onError = {
-            // _dataLoading.value = false
-        })
+    fun startWork(
+        startWorkRequest: StartWorkRequest,
+        onSuccess: OnSuccess<StartWorkResponse>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            iMyWorkRepository.startWork(startWorkRequest, onSuccess, onError)
+        }
     }
 
-    /*save selected menus*/
-    fun onClick() {
-        // _dataLoading.value = true
-
-        toastMessage.value = "Menu saved successfully"
-//        settingRepository.onSaveSelectedMenuItems(onSuccess = {
-//          //  _dataLoading.value = false
-//            _languageList = it as MutableLiveData<MutableList<LanguageModel>>
-//        }, onError = {
-//           // _dataLoading.value = false
-//        })
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        settingRepository.completedJob.cancel()
+    class Factory(val context: Context?) : ViewModelProvider.NewInstanceFactory() {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            val repository = IMyWorkRepository.getInstance(
+                NetworkManager.serviceClass(MyWorkApi::class.java).create()
+            )
+            return MyWorksViewModel(repository) as T
+        }
     }
 
 }

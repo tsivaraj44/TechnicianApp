@@ -170,7 +170,7 @@ class SettingsFragment : BaseFragment(), LanguageAdapter.OnItemClickListener,
 
     }
 
-    private fun startObserveResponse() {
+    /*private fun startObserveResponse() {
         viewModel?.languageList?.observe(activity as MainActivity, androidx.lifecycle.Observer {
             Log.i("startObserveResponse", "--->>>>> " + it as ArrayList<LanguageModel>)
             languageArrayList = it as ArrayList<LanguageModel>
@@ -189,7 +189,7 @@ class SettingsFragment : BaseFragment(), LanguageAdapter.OnItemClickListener,
             activity?.toast(it)
         })
 
-    }
+    }*/
 
     /*
     * Language selection
@@ -237,9 +237,9 @@ class SettingsFragment : BaseFragment(), LanguageAdapter.OnItemClickListener,
                 } else {
                     settingsMenu.selected = "1"
                 }
-                homeArrayList.set(homeArrayList.indexOf(settingsMenu), settingsMenu)
-                homePageAdapter!!.notifyItemChanged(homeArrayList.indexOf(settingsMenu))
-                viewModel?.settingMenu?.value = homeArrayList
+                homeArrayList[homeArrayList.indexOf(settingsMenu)] = settingsMenu
+                homePageAdapter.notifyItemChanged(homeArrayList.indexOf(settingsMenu))
+              //  viewModel?.settingMenu?.value = homeArrayList
             }
         }
     }

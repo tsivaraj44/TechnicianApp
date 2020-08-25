@@ -2,6 +2,7 @@ package com.bpositive.technician.core
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.bpositive.BuildConfig
+import com.bpositive.technician.utils.BaseData.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class NetworkManager {
 
     companion object {
-        private lateinit var baseURL: String
+        private var baseURL: String = BASE_URL
         private var serviceClass: Any? = null
 
         fun baseURL(baseURL: String) = apply {

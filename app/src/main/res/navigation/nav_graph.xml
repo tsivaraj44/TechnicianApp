@@ -41,6 +41,7 @@
         android:label="SettingsFragment" />
     <fragment
         android:id="@+id/loginFragment"
+        tools:layout="@layout/fragment_login"
         android:name="com.bpositive.technician.login.view.LoginFragment"
         android:label="LoginFragment" >
         <action
@@ -53,6 +54,7 @@
         android:label="WorksFragment" />
     <fragment
         android:id="@+id/myWorkFragment"
-        android:name="com.bpositive.technician.myWorks.view.MyWorkFragment"
+        tools:layout="@layout/fragment_admin_map_all_list_view_main"
+        android:name="com.bpositive.technician.myWorks.view.MyWorksFragment"
         android:label="MyWorkFragment" />
 </navigation>

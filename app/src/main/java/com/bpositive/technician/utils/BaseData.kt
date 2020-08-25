@@ -4,7 +4,7 @@ object BaseData {
 
 //        val BASE_URL = "https://api.github.com/"
 
-    val BASE_URL = "" // Demo - Sprint1
+    val BASE_URL = "http://sakthivision.com/Mobileapi/vision/Technician_Api/" // Demo - Sprint1
 
     val DEFAULT_LANG_CODE = "en"
 
