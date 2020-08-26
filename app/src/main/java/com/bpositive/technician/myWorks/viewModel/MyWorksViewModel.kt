@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.bpositive.technician.core.NetworkManager
+import com.bpositive.technician.myWorks.model.request.MoveToPendingReq
 import com.bpositive.technician.myWorks.model.request.MyWorkRequest
 import com.bpositive.technician.myWorks.model.request.StartWorkRequest
 import com.bpositive.technician.myWorks.model.response.MyWorkResponse
@@ -34,6 +35,26 @@ class MyWorksViewModel(private val iMyWorkRepository: IMyWorkRepository) : ViewM
     ) {
         viewModelScope.launch {
             iMyWorkRepository.startWork(startWorkRequest, onSuccess, onError)
+        }
+    }
+
+    fun moveToPending(
+        moveToPendingReq: MoveToPendingReq,
+        onSuccess: OnSuccess<StartWorkResponse>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            iMyWorkRepository.moveToPending(moveToPendingReq, onSuccess, onError)
+        }
+    }
+
+    fun completeWork(
+        moveToPendingReq: MoveToPendingReq,
+        onSuccess: OnSuccess<StartWorkResponse>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            iMyWorkRepository.completeWork(moveToPendingReq, onSuccess, onError)
         }
     }
 

@@ -77,5 +77,6 @@
 
     <string name="date_">Date :</string>
     <string name="time_">Time :</string>
+    <string name="action_complete">Complete</string>
 
 </resources>

@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bpositive.R
+import com.bpositive.technician.myWorks.model.request.MoveToPendingReq
 import com.bpositive.technician.myWorks.model.request.MyWorkRequest
 import com.bpositive.technician.myWorks.model.request.StartWorkRequest
 import com.bpositive.technician.myWorks.model.response.Works
 import com.bpositive.technician.myWorks.view.adapter.MyWorkAdapter
+import com.bpositive.technician.myWorks.view.fragment.CompletedDialogFragment
 import com.bpositive.technician.myWorks.viewModel.MyWorksViewModel
+import com.bpositive.technician.utils.TravelStatus.IN_PROGRESS
+import com.bpositive.technician.utils.TravelStatus.PENDING
+import com.bpositive.technician.utils.TravelStatus.UP_COMING
 import com.bpositive.technician.utils.toast
 import kotlinx.android.synthetic.main.fragment_work.*
 
@@ -34,17 +39,17 @@ class WorksFragment(val type: Int) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         rvMyWork.adapter = MyWorkAdapter { work ->
-            pbWorks.visibility = View.VISIBLE
-            viewModel.startWork(
-                startWorkRequest = StartWorkRequest(
-                    work.jobId.toString().toInt(),
-                    work.technicianId.toString().toInt()
-                ), onSuccess = {
-                    pbWorks.visibility = View.GONE
-                    activity?.toast(it.message.toString())
-                }, onError = {
-                    pbWorks.visibility = View.GONE
-                })
+            when (type) {
+                UP_COMING -> {
+                    startWork(work)
+                }
+                IN_PROGRESS -> {
+                    completeWork(work)
+                }
+                PENDING -> {
+                    completeWork(work)
+                }
+            }
         }
 
         getMyWork()
@@ -63,6 +68,56 @@ class WorksFragment(val type: Int) : Fragment() {
         }, onError = {
             pbWorks.visibility = View.GONE
         })
+    }
+
+    private fun startWork(work: Works) {
+        pbWorks.visibility = View.VISIBLE
+        viewModel.startWork(
+            startWorkRequest = StartWorkRequest(
+                work.jobId.toString().toInt(),
+                work.technicianId.toString().toInt()
+            ), onSuccess = {
+                pbWorks.visibility = View.GONE
+                activity?.toast(it.message.toString())
+            }, onError = {
+                pbWorks.visibility = View.GONE
+            })
+    }
+
+    private fun moveToPending(work: Works) {
+        CompletedDialogFragment.getInstance(false) { cost, comment ->
+            pbWorks.visibility = View.VISIBLE
+            /*{"technician_id":1,"job_id":7,"amount":100.00,"comments":"some work balance"}*/
+            viewModel.moveToPending(
+                moveToPendingReq = MoveToPendingReq(
+                    jobId = work.jobId.toString().toInt(),
+                    technicianId = work.technicianId.toString().toInt(),
+                    amount = cost.toDouble(), comments = comment
+                ), onSuccess = {
+                    pbWorks.visibility = View.GONE
+                    activity?.toast(it.message.toString())
+                }, onError = {
+                    pbWorks.visibility = View.GONE
+                })
+        }.show(childFragmentManager, CompletedDialogFragment.javaClass.simpleName)
+    }
+
+    private fun completeWork(work: Works) {
+        CompletedDialogFragment.getInstance(true) { cost, comment ->
+            pbWorks.visibility = View.VISIBLE
+            /*{"technician_id":1,"job_id":7,"amount":100.00,"comments":"rep changed"}*/
+            viewModel.completeWork(
+                moveToPendingReq = MoveToPendingReq(
+                    jobId = work.jobId.toString().toInt(),
+                    technicianId = work.technicianId.toString().toInt(),
+                    amount = cost.toDouble(), comments = comment
+                ), onSuccess = {
+                    pbWorks.visibility = View.GONE
+                    activity?.toast(it.message.toString())
+                }, onError = {
+                    pbWorks.visibility = View.GONE
+                })
+        }.show(childFragmentManager, CompletedDialogFragment.javaClass.simpleName)
     }
 
     companion object {

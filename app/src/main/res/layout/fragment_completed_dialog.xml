@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".technician.myWorks.view.fragment.CompletedDialogFragment">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small"
+        android:hint="Enter repair cost"
+        android:inputType="number" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/etComment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small"
+        android:hint="Enter your comment here" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_small"
+        android:text="@string/action_complete" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
