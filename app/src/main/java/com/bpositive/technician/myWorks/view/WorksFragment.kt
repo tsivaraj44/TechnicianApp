@@ -66,6 +66,7 @@ class WorksFragment(val type: Int) : Fragment() {
             }
             pbWorks.visibility = View.GONE
         }, onError = {
+            activity?.toast(it)
             pbWorks.visibility = View.GONE
         })
     }
@@ -80,6 +81,7 @@ class WorksFragment(val type: Int) : Fragment() {
                 pbWorks.visibility = View.GONE
                 activity?.toast(it.message.toString())
             }, onError = {
+                activity?.toast(it)
                 pbWorks.visibility = View.GONE
             })
     }
@@ -97,6 +99,7 @@ class WorksFragment(val type: Int) : Fragment() {
                     pbWorks.visibility = View.GONE
                     activity?.toast(it.message.toString())
                 }, onError = {
+                    activity?.toast(it)
                     pbWorks.visibility = View.GONE
                 })
         }.show(childFragmentManager, CompletedDialogFragment.javaClass.simpleName)
@@ -115,6 +118,7 @@ class WorksFragment(val type: Int) : Fragment() {
                     pbWorks.visibility = View.GONE
                     activity?.toast(it.message.toString())
                 }, onError = {
+                    activity?.toast(it)
                     pbWorks.visibility = View.GONE
                 })
         }.show(childFragmentManager, CompletedDialogFragment.javaClass.simpleName)

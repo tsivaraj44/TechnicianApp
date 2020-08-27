@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class MyWorkResponse(
     val details: List<Works?>? = null,
-    val httpStatus: Int? = null,
+    @SerializedName("http_status") val httpStatus: Int? = null,
     val message: String? = null,
     val status: Boolean? = null
 )
@@ -22,7 +22,7 @@ data class Works(
     @SerializedName("model_name") val modelName: String? = null,
     @SerializedName("category_id") val categoryId: String? = null,
     @SerializedName("job_id") val jobId: String? = null,
-    @SerializedName("category_name") val customerName: String? = null,
+    @SerializedName("customer_name") val customerName: String? = null,
     @SerializedName("customer_id") val customerId: String? = null,
     @SerializedName("visit_date") val visitDate: String? = null
 )

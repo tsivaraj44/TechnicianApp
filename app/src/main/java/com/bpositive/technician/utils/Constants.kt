@@ -11,6 +11,7 @@ object ApiConstants {
     const val START_WORK = "start_work"
     const val MOVE_TO_PENDING = "move_to_pending"
     const val MOVE_COMPLETED = "work_completed"
+    const val TECHNICAL_LOGIN = "technician_login"
 }
 
 object TravelStatus {
@@ -42,6 +43,9 @@ object GridViewItems {
 object sessionNames {
     const val USER_ID = "user_id"
     const val USER_LANGUAGE = "language"
+    const val TECHNICIAN_ID = "technician_id"
+    const val AUTH_TOKEN = "auth_token"
+    const val MOBILE_NO = "mobile_number"
 }
 
 object Language {
