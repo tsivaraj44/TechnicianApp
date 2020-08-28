@@ -35,7 +35,7 @@ fun View.makeCircularImage(drawable: String) {
         .into(this as ImageView)
 }
 
-fun View.loadImage(url:String){
+fun View.loadImage(url: String) {
     Glide
         .with(context)
         .load(url)
@@ -51,16 +51,18 @@ fun String.convertDateToLong(): Long {
 }
 
 fun View.showKeyboard() {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
 }
 
 fun View.hideKeyboard() {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    val inputMethodManager =
+        context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun FragmentManager.getCurrentNavigationFragment():Fragment? =
+fun FragmentManager.getCurrentNavigationFragment(): Fragment? =
     primaryNavigationFragment?.childFragmentManager?.fragments?.first()
 
 fun Context.showAlert(msg: String, confirmation: OnSuccess<Boolean>) {
@@ -79,4 +81,19 @@ fun Context.showAlert(msg: String, confirmation: OnSuccess<Boolean>) {
         it.getButton(DialogInterface.BUTTON_POSITIVE).textSize = 22f
         it.getButton(DialogInterface.BUTTON_NEGATIVE).textSize = 22f
     }
+}
+
+fun Context.showMoveTo(confirmation: OnSuccess<Int>) {
+    AlertDialog.Builder(this).apply {
+        setMessage("Move To")
+        setCancelable(true)
+        setPositiveButton("Pending") { dialogInterface, i ->
+            confirmation.invoke(TravelStatus.PENDING)
+            dialogInterface.dismiss()
+        }
+        setNeutralButton("Completed") { dialogInterface, i ->
+            confirmation.invoke(TravelStatus.COMPLETED)
+            dialogInterface.dismiss()
+        }
+    }.show()
 }

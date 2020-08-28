@@ -69,9 +69,9 @@ class LoginFragment : BaseFragment() {
         pbLogin.visibility = View.VISIBLE
         viewModel.doLogin(
             loginRequest = LoginRequest(
-                mobileNumber = userNameField.text.toString().toLong(),
+                mobileNumber = userNameField.text.toString(),
                 countryCode = "+91",
-                password = passwordField.text.toString().toLong(),
+                password = passwordField.text.toString(),
                 deviceType = Build.MANUFACTURER,
                 deviceToken = "jnf66jdh77"
             ), onSuccess = {

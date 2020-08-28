@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bpositive.R
 import com.bpositive.technician.myWorks.model.response.Works
+import com.bpositive.technician.utils.TravelStatus
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_admin_map_lisview_card_item.view.*
 
 typealias works = (Works) -> Unit
 
-class MyWorkAdapter(val works: works) : RecyclerView.Adapter<MyWorkAdapter.WorkHolder>() {
+class MyWorkAdapter(val type: Int, val works: works) :
+    RecyclerView.Adapter<MyWorkAdapter.WorkHolder>() {
 
     private val worksList: ArrayList<Works> = ArrayList()
 
@@ -29,6 +31,7 @@ class MyWorkAdapter(val works: works) : RecyclerView.Adapter<MyWorkAdapter.WorkH
     }
 
     fun addWorkList(_worksList: List<Works>) {
+        worksList.clear()
         worksList.addAll(_worksList)
         notifyDataSetChanged()
     }
@@ -49,10 +52,22 @@ class MyWorkAdapter(val works: works) : RecyclerView.Adapter<MyWorkAdapter.WorkH
                     if (lay_expand_map_listview_details.visibility == View.VISIBLE) {
                         lay_expand_map_listview_details.visibility = View.GONE
                     } else {
-                        lay_expand_map_listview_details.visibility = View.VISIBLE
+                        if (type != TravelStatus.COMPLETED)
+                            lay_expand_map_listview_details.visibility = View.VISIBLE
                     }
                 }
 
+                when (type) {
+                    TravelStatus.IN_PROGRESS -> {
+                        txt_map_listview_action.text = "Move To"
+                    }
+                    TravelStatus.PENDING -> {
+                        txt_map_listview_action.text = "Complete"
+                    }
+                    TravelStatus.COMPLETED -> {
+                        lay_expand_map_listview_details.visibility = View.GONE
+                    }
+                }
                 lay_expand_map_listview_details.setOnClickListener {
                     works.invoke(data)
                 }

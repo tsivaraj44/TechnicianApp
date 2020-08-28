@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bpositive.R
 import com.bpositive.technician.myWorks.model.request.MoveToPendingReq
 import com.bpositive.technician.myWorks.model.request.MyWorkRequest
@@ -14,9 +15,11 @@ import com.bpositive.technician.myWorks.model.response.Works
 import com.bpositive.technician.myWorks.view.adapter.MyWorkAdapter
 import com.bpositive.technician.myWorks.view.fragment.CompletedDialogFragment
 import com.bpositive.technician.myWorks.viewModel.MyWorksViewModel
+import com.bpositive.technician.utils.TravelStatus.COMPLETED
 import com.bpositive.technician.utils.TravelStatus.IN_PROGRESS
 import com.bpositive.technician.utils.TravelStatus.PENDING
 import com.bpositive.technician.utils.TravelStatus.UP_COMING
+import com.bpositive.technician.utils.showMoveTo
 import com.bpositive.technician.utils.toast
 import kotlinx.android.synthetic.main.fragment_work.*
 
@@ -38,13 +41,18 @@ class WorksFragment(val type: Int) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvMyWork.adapter = MyWorkAdapter { work ->
+        strWork.setOnRefreshListener {
+            getMyWork()
+            strWork.isRefreshing = false
+        }
+
+        rvMyWork.adapter = MyWorkAdapter(type) { work ->
             when (type) {
                 UP_COMING -> {
                     startWork(work)
                 }
                 IN_PROGRESS -> {
-                    completeWork(work)
+                    moveTo(work)
                 }
                 PENDING -> {
                     completeWork(work)
@@ -56,18 +64,18 @@ class WorksFragment(val type: Int) : Fragment() {
     }
 
     private fun getMyWork() {
-        pbWorks.visibility = View.VISIBLE
+        pbWorks?.visibility = View.VISIBLE
         viewModel.getWorkList(myWorkRequest = MyWorkRequest(1, type), onSuccess = {
             it.details?.let { workList ->
                 if (!workList.isNullOrEmpty()) {
-                    (rvMyWork.adapter as MyWorkAdapter).addWorkList(workList as List<Works>)
-                    tvNoWorks.visibility = View.GONE
+                    (rvMyWork?.adapter as MyWorkAdapter).addWorkList(workList as List<Works>)
+                    tvNoWorks?.visibility = View.GONE
                 }
             }
-            pbWorks.visibility = View.GONE
+            pbWorks?.visibility = View.GONE
         }, onError = {
             activity?.toast(it)
-            pbWorks.visibility = View.GONE
+            pbWorks?.visibility = View.GONE
         })
     }
 
@@ -86,8 +94,19 @@ class WorksFragment(val type: Int) : Fragment() {
             })
     }
 
+    private fun moveTo(work: Works) {
+        context?.showMoveTo {
+            when (it) {
+                PENDING ->
+                    moveToPending(work)
+                COMPLETED ->
+                    completeWork(work)
+            }
+        }
+    }
+
     private fun moveToPending(work: Works) {
-        CompletedDialogFragment.getInstance(false) { cost, comment ->
+        CompletedDialogFragment.getInstance("Move to pending", false) { cost, comment ->
             pbWorks.visibility = View.VISIBLE
             /*{"technician_id":1,"job_id":7,"amount":100.00,"comments":"some work balance"}*/
             viewModel.moveToPending(
@@ -106,7 +125,7 @@ class WorksFragment(val type: Int) : Fragment() {
     }
 
     private fun completeWork(work: Works) {
-        CompletedDialogFragment.getInstance(true) { cost, comment ->
+        CompletedDialogFragment.getInstance("Complete",true) { cost, comment ->
             pbWorks.visibility = View.VISIBLE
             /*{"technician_id":1,"job_id":7,"amount":100.00,"comments":"rep changed"}*/
             viewModel.completeWork(

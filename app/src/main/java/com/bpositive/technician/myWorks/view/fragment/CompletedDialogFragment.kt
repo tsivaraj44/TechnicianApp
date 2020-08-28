@@ -12,7 +12,11 @@ import kotlinx.android.synthetic.main.fragment_completed_dialog.*
 
 typealias costWithComment = (String, String) -> Unit
 
-class CompletedDialogFragment(val type: Boolean, val costWithComment: costWithComment) :
+class CompletedDialogFragment(
+    val name: String,
+    val type: Boolean,
+    val costWithComment: costWithComment
+) :
     DialogFragment() {  //  type -> true(complete), false(pending)
 
     override fun onCreateView(
@@ -26,8 +30,7 @@ class CompletedDialogFragment(val type: Boolean, val costWithComment: costWithCo
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (!type)
-            btnComplete.text = "Move to pending"
+        btnComplete.text = name
 
         btnComplete.setOnClickListener {
             if (isFieldValid()) {
@@ -48,8 +51,8 @@ class CompletedDialogFragment(val type: Boolean, val costWithComment: costWithCo
     }
 
     companion object {
-        fun getInstance(type: Boolean, costWithComment: costWithComment) =
-            CompletedDialogFragment(type, costWithComment)
+        fun getInstance(name: String, type: Boolean, costWithComment: costWithComment) =
+            CompletedDialogFragment(name, type, costWithComment)
     }
 
 }
