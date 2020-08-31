@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bpositive.R
 import com.bpositive.technician.myWorks.model.request.MoveToPendingReq
 import com.bpositive.technician.myWorks.model.request.MyWorkRequest
@@ -32,11 +31,25 @@ class WorksFragment(val type: Int) : Fragment() {
         }
     }
 
+    /*override fun setMenuVisibility(menuVisible: Boolean) {
+        super.setMenuVisibility(menuVisible)
+        if (menuVisible && isVisible && isResumed && !isApiCalled) {
+            getMyWork()
+            isApiCalled = true
+        }
+    }*/
+
+    private var rootView: View? = null
+    private var isApiCalled = false
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_work, container, false)
+    ): View? {
+        if (rootView == null)
+            rootView = inflater.inflate(R.layout.fragment_work, container, false)
+        return rootView;
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,10 +73,15 @@ class WorksFragment(val type: Int) : Fragment() {
             }
         }
 
-        getMyWork()
+        if (type == UP_COMING && !isApiCalled) {
+            getMyWork()
+            isApiCalled = true
+        }
+
     }
 
-    private fun getMyWork() {
+    fun getMyWork() {
+        println("GET_____$type")
         pbWorks?.visibility = View.VISIBLE
         viewModel.getWorkList(myWorkRequest = MyWorkRequest(1, type), onSuccess = {
             it.details?.let { workList ->
@@ -125,7 +143,7 @@ class WorksFragment(val type: Int) : Fragment() {
     }
 
     private fun completeWork(work: Works) {
-        CompletedDialogFragment.getInstance("Complete",true) { cost, comment ->
+        CompletedDialogFragment.getInstance("Complete", true) { cost, comment ->
             pbWorks.visibility = View.VISIBLE
             /*{"technician_id":1,"job_id":7,"amount":100.00,"comments":"rep changed"}*/
             viewModel.completeWork(

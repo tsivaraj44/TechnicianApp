@@ -68,11 +68,6 @@ class CaseDetailsFragment : BaseFragment(), CaseAdapter.OnItemClickListener,
         return true
     }
 
-    override fun onStart() {
-        super.onStart()
-        activity?.findViewById<LinearLayout>(R.id.followerLay)?.visibility = View.VISIBLE
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
@@ -131,7 +126,7 @@ class CaseDetailsFragment : BaseFragment(), CaseAdapter.OnItemClickListener,
             .apply(RequestOptions.circleCropTransform())
             .into(activity?.findViewById(R.id.headerImages)!!)*/
 
-        Glide
+        /*Glide
             .with(this)
             .load(homeDetails.initiatorImage.toString())
             .apply(RequestOptions.circleCropTransform())
@@ -140,39 +135,37 @@ class CaseDetailsFragment : BaseFragment(), CaseAdapter.OnItemClickListener,
 
         activity?.nameTv?.text = homeDetails.initiatiorName
         activity?.followersTv?.text =
-            homeDetails.followCount + " " + resources.getString(R.string.followers)
+            homeDetails.followCount + " " + resources.getString(R.string.followers)*/
         val maximumAmount: Int =
             homeDetails.requiredAmount!!.replace(",", "")
                 .toInt()
-        serialNumberTv.setText(resources.getString(R.string.serialNo) + " " + homeDetails.nationalNumber)
+        serialNumberTv.text = resources.getString(R.string.serialNo) + " " + homeDetails.nationalNumber
         val requiredAmountCurrency: String =
-            homeDetails.requiredAmount!! + " " + homeDetails.currencyCode.toString()
-        requiredAmount.setText(requiredAmountCurrency)
+            homeDetails.requiredAmount + " " + homeDetails.currencyCode.toString()
+        requiredAmount.text = requiredAmountCurrency
         requiredProgressBar.apply {
             max = maximumAmount
             progress = maximumAmount
         }
         val raisedAmountCurrency: String =
             homeDetails.raisedAmount.toString() + " " + homeDetails.currencyCode.toString()
-        raisedAmount.setText(
-            raisedAmountCurrency
-        )
+        raisedAmount.text = raisedAmountCurrency
         raisedProgressBar.apply {
             max = maximumAmount
             progress = homeDetails.raisedAmount!!.replace(",", "").toInt()
         }
         val balanceAmountCurrency: String =
             homeDetails.balanceAmount + " " + homeDetails.currencyCode.toString()
-        balanceAmount.setText(balanceAmountCurrency)
+        balanceAmount.text = balanceAmountCurrency
         balanceProgressBar.apply {
             max = maximumAmount
             progress = homeDetails.balanceAmount!!.replace(",", "").toInt()
         }
-        descriptionText.setText(homeDetails.caseDescription)
-        serialNumber1.setText(resources.getString(R.string.serialNo) + " " + homeDetails.nationalNumber)
-        dateTv.setText(resources.getString(R.string.date_) + " " + homeDetails.date)
-        timeTv.setText(resources.getString(R.string.time_) + " " + homeDetails.time)
-        viewers.setText(homeDetails.views)
+        descriptionText.text = homeDetails.caseDescription
+        serialNumber1.text = resources.getString(R.string.serialNo) + " " + homeDetails.nationalNumber
+        dateTv.text = resources.getString(R.string.date_) + " " + homeDetails.date
+        timeTv.text = resources.getString(R.string.time_) + " " + homeDetails.time
+        viewers.text = homeDetails.views
         val sourceArray: List<String> = homeDetails.documents as List
         for (i in 0 until sourceArray.size) {
             if (!sourceArray.get(i).isEmpty()) {

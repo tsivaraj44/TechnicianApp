@@ -12,6 +12,9 @@ object ApiConstants {
     const val MOVE_TO_PENDING = "move_to_pending"
     const val MOVE_COMPLETED = "work_completed"
     const val TECHNICAL_LOGIN = "technician_login"
+    const val GET_PROFILE = "get_profile_details"
+    const val UPDATE_PROFILE = "update_profile_details"
+    const val CHANGE_PASSWORD = "change_password"
 }
 
 object TravelStatus {

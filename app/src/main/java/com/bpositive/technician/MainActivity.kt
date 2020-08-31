@@ -4,8 +4,8 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -15,11 +15,10 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bpositive.R
+import com.bpositive.technician.utils.FragmentListener
+import com.bpositive.technician.utils.toast
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
-import com.bpositive.technician.utils.FragmentListener
-import com.bpositive.technician.utils.loadImage
-import com.bpositive.technician.utils.toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -78,7 +77,7 @@ class MainActivity : AppCompatActivity(), FragmentListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation =  (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        requestedOrientation = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_main)
 
         setupNavigation()
@@ -90,7 +89,7 @@ class MainActivity : AppCompatActivity(), FragmentListener,
         setSupportActionBar(toolbar);
 
         toolbar.title = ""
-        collapsingToolbar.isTitleEnabled = false
+        //  collapsingToolbar.isTitleEnabled = false
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         supportActionBar?.setDisplayShowHomeEnabled(true);
@@ -134,15 +133,15 @@ class MainActivity : AppCompatActivity(), FragmentListener,
         navHostFrag.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             when (findNavController(v?.id!!).currentDestination?.id) {
                 R.id.homeFragment -> {
-                    mainHomeHeaderImgLayout?.visibility = View.VISIBLE
+                    /*mainHomeHeaderImgLayout?.visibility = View.VISIBLE
                     mainDomainHeaderImgLayout?.visibility = View.GONE
-                    headerImages?.visibility = View.GONE
+                    headerImages?.visibility = View.GONE*/
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 else -> {
-                    mainDomainHeaderImgLayout?.visibility = View.VISIBLE
+                    /*mainDomainHeaderImgLayout?.visibility = View.VISIBLE
                     headerImages?.visibility = View.VISIBLE
-                    mainHomeHeaderImgLayout?.visibility = View.GONE
+                    mainHomeHeaderImgLayout?.visibility = View.GONE*/
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
 //                    setHeaderImage()
@@ -175,12 +174,12 @@ class MainActivity : AppCompatActivity(), FragmentListener,
     override fun setShowHomeViews(home: Boolean) {
 
         Log.i("showHomeViews", "showHomeViews $home")
-        if (collapsingToolbar != null) {
+        /*if (collapsingToolbar != null) {
             if (home)
                 collapsingToolbar.visibility = View.VISIBLE
             else
                 collapsingToolbar.visibility = View.GONE
-        }
+        }*/
 
 //        handleHomeDomainImage()
 
@@ -254,6 +253,9 @@ class MainActivity : AppCompatActivity(), FragmentListener,
             R.id.menu_my_works -> {
                 navController.navigate(R.id.myWorkFragment)
             }
+            R.id.myProfileFragment -> {
+                navController.navigate(R.id.myProfileFragment)
+            }
             else -> {
                 toast("Coming soon")
             }
@@ -292,10 +294,20 @@ class MainActivity : AppCompatActivity(), FragmentListener,
 
     }
 
-    fun setHeaderImage(imgUrl: String?, title: String?){
-        userImage.background = null
-        userImage.loadImage(imgUrl!!)
+    fun setHeaderImage(imgUrl: String?, title: String?) {
+        /*userImage.background = null
+        userImage.loadImage(imgUrl!!)*/
     }
 
+    fun removeScrollingBehaviour() {
+        val params = navHostFrag.layoutParams as CoordinatorLayout.LayoutParams
+        params.behavior = null
+    }
+
+    fun enableScrollingBehaviour() {
+        val params = navHostFrag.layoutParams as CoordinatorLayout.LayoutParams
+        params.behavior = AppBarLayout.ScrollingViewBehavior()
+        //  navHostFrag.requestLayout()
+    }
 
 }

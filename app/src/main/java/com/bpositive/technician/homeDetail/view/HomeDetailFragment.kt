@@ -260,11 +260,11 @@ class HomeDetailFragment : BaseFragment(), View.OnClickListener, LoginDialog.Cus
     }
 
     fun headerImagesTitle(url: String?, title: String?) {
-        activity?.findViewById<LinearLayout>(R.id.followerLay)?.visibility = View.GONE
+      //  activity?.findViewById<LinearLayout>(R.id.followerLay)?.visibility = View.GONE
         activity?.findViewById<CustomTextView>(R.id.nameTv)?.text = title
-        val imgView = activity?.findViewById<AppCompatImageView>(R.id.userImage)!!
+      /*  val imgView = activity?.findViewById<AppCompatImageView>(R.id.userImage)!!
         imgView.loadImage(headerImgUrl!!)
-        imgView.background = null
+        imgView.background = null*/
     }
 
 

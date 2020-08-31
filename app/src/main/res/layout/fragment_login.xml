@@ -47,8 +47,7 @@
                     android:id="@+id/userNameField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    android:textSize="@dimen/edit_text" />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,8 +66,7 @@
                     android:id="@+id/passwordField"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:textSize="@dimen/edit_text" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,8 +75,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:padding="@dimen/spacing_small"
                 android:text="@string/forgot_password"
-                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="@id/user_name_input_layout"
                 app:layout_constraintStart_toStartOf="@+id/user_name_input_layout"
                 app:layout_constraintTop_toBottomOf="@+id/password_input_layout" />
@@ -90,7 +88,6 @@
                 android:gravity="center"
                 android:text="@string/sign_in"
                 android:textAllCaps="false"
-                android:textSize="@dimen/buttons"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:layout_constraintEnd_toEndOf="@id/l_forgot_password_txt"
                 app:layout_constraintStart_toStartOf="@+id/l_forgot_password_txt"
@@ -104,7 +101,6 @@
                 android:layout_marginStart="16dp"
                 android:gravity="center"
                 android:text="@string/dont_have_account"
-                android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/signinBtn" />
@@ -116,7 +112,6 @@
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"
-                android:textSize="@dimen/buttons"
                 app:backgroundTint="@color/colorAccent"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:layout_constraintEnd_toEndOf="@id/signinBtn"

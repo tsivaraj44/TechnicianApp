@@ -11,11 +11,12 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import com.bpositive.R
+import com.bpositive.databinding.FragmentSplashBinding
 import com.bpositive.technician.BaseFragment
 import com.bpositive.technician.MainActivity
-import com.bpositive.R
+import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.core.SessionManager
-import com.bpositive.databinding.FragmentSplashBinding
 import com.bpositive.technician.splash.viewModel.SplashViewModel
 import com.bpositive.technician.utils.Language.ENGLISH
 import com.bpositive.technician.utils.sessionNames.USER_LANGUAGE
@@ -46,7 +47,7 @@ class SplashFragment : BaseFragment() {
 //        viewModel?.start()
         Handler().postDelayed({
             moveToNextScreen()
-        },2000)
+        }, 2000)
 
 
         return viewDataBinding.root
@@ -114,7 +115,12 @@ class SplashFragment : BaseFragment() {
 
     private fun moveToNextScreen() {
         when (findNavController().currentDestination?.id) {
-            R.id.splashFragment -> findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            R.id.splashFragment -> {
+                if (PreferenceManager(context!!).getTechnicianId() != 0)
+                    findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                else
+                    findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            }
         }
     }
 

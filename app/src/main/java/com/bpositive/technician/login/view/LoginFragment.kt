@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.bpositive.R
 import com.bpositive.technician.BaseFragment
+import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.login.model.LoginRequest
 import com.bpositive.technician.login.viewModel.LoginViewModel
 import com.bpositive.technician.utils.ShowToast
@@ -77,6 +78,9 @@ class LoginFragment : BaseFragment() {
             ), onSuccess = {
                 pbLogin.visibility = View.GONE
                 activity?.toast(it.message.toString())
+                PreferenceManager(context!!).saveTechnicianId(
+                    it.userDetails?.technicianId.toString().toInt()
+                )
                 when (findNavController().currentDestination?.id) {
                     R.id.loginFragment -> findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }

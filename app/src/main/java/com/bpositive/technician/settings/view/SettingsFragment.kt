@@ -63,16 +63,16 @@ class SettingsFragment : BaseFragment(), LanguageAdapter.OnItemClickListener,
 
     override fun onStart() {
         super.onStart()
-        activity?.findViewById<AppCompatImageView>(R.id.headerImages)?.visibility = View.GONE
+        /*activity?.findViewById<AppCompatImageView>(R.id.headerImages)?.visibility = View.GONE
         activity?.findViewById<AppCompatImageView>(R.id.followersIcon)?.visibility = View.GONE
-        activity?.findViewById<CustomTextView>(R.id.followersTv)?.visibility = View.GONE
+        activity?.findViewById<CustomTextView>(R.id.followersTv)?.visibility = View.GONE*/
         activity?.findViewById<CustomTextView>(R.id.nameTv)?.text = "Settings"
-        activity?.findViewById<AppCompatImageView>(R.id.userImage)?.setBackgroundDrawable(null)
+        /*activity?.findViewById<AppCompatImageView>(R.id.userImage)?.setBackgroundDrawable(null)
         Glide
             .with(this)
             .load(R.drawable.ic_setting_white)
             .apply(RequestOptions.circleCropTransform())
-            .into(activity?.findViewById<AppCompatImageView>(R.id.userImage)!!)
+            .into(activity?.findViewById<AppCompatImageView>(R.id.userImage)!!)*/
 
     }
 

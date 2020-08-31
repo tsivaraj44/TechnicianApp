@@ -78,5 +78,34 @@
     <string name="date_">Date :</string>
     <string name="time_">Time :</string>
     <string name="action_complete">Complete</string>
+    <string name="label_welcome">Welcome</string>
+    <string name="label_name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="action_change_password">Change Password</string>
+    <string name="action_edit_profile">Edit Profile</string>
+    <string name="action_save_profile">Save Profile</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="label_mobile_no">Mobile Number</string>
+    <string name="label_address">Address</string>
+    <string name="label_pincode">Pincode</string>
+    <string name="label_email">Email</string>
+    <string name="label_logout">Logout</string>
+    <string name="label_my_profile">My Profile</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+
+    <string name="username_required">Username required</string>
+    <string name="email_address_required">Email address required</string>
+    <string name="mobile_no_required">Mobile number required</string>
+    <string name="valid_email_required">Valid email address required</string>
+    <string name="permission_denied">Permission Denied</string>
+    <string name="label_change_password">Change Password</string>
+    <string name="label_old_pwd">Old Password</string>
+    <string name="label_new_pwd">New Password</string>
+    <string name="label_confirm_pwd">Confirm Password</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="enter_confirm_password">Enter new password</string>
+    <string name="incorrect_password">New password and confirm password incorrect</string>
 
 </resources>
