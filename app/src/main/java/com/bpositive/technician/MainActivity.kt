@@ -4,8 +4,8 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -15,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bpositive.R
+import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.utils.FragmentListener
 import com.bpositive.technician.utils.toast
 import com.google.android.material.appbar.AppBarLayout
@@ -136,8 +137,11 @@ class MainActivity : AppCompatActivity(), FragmentListener,
                     /*mainHomeHeaderImgLayout?.visibility = View.VISIBLE
                     mainDomainHeaderImgLayout?.visibility = View.GONE
                     headerImages?.visibility = View.GONE*/
+                    toolbar.visibility = View.VISIBLE
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
+                R.id.loginFragment -> toolbar.visibility = View.GONE
+                R.id.splashFragment -> toolbar.visibility = View.GONE
                 else -> {
                     /*mainDomainHeaderImgLayout?.visibility = View.VISIBLE
                     headerImages?.visibility = View.VISIBLE
@@ -172,7 +176,6 @@ class MainActivity : AppCompatActivity(), FragmentListener,
     }
 
     override fun setShowHomeViews(home: Boolean) {
-
         Log.i("showHomeViews", "showHomeViews $home")
         /*if (collapsingToolbar != null) {
             if (home)
@@ -182,39 +185,30 @@ class MainActivity : AppCompatActivity(), FragmentListener,
         }*/
 
 //        handleHomeDomainImage()
-
-
     }
 
     private fun setupViewFragment() {
 //        replaceFragmentInActivity(SplashFragment.newInstanceTest(), R.id.fragment_container, "")
     }
 
-
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             when (findNavController(R.id.navHostFrag).currentDestination?.id) {
-                R.id.homeDetailFragment -> findNavController(
-                    R.id.navHostFrag
-                ).navigate(R.id.homeFragment)
-
+                //  R.id.homeDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.homeFragment)
                 R.id.homeFragment -> finish()
-
+                R.id.loginFragment -> finish()
                 else -> super.onBackPressed()
             }
         }
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.navHostFrag)
         when (findNavController(R.id.navHostFrag).currentDestination?.id) {
             R.id.homeDetailFragment -> {
-                findNavController(R.id.navHostFrag).navigate(
-                    R.id.homeFragment
-                )
+                findNavController(R.id.navHostFrag).navigate(R.id.homeFragment)
                 return false
             }
         }
@@ -237,17 +231,13 @@ class MainActivity : AppCompatActivity(), FragmentListener,
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        println("onNavigationItemSelected")
-
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHostFrag) as NavHostFragment
         val navController = host.navController
 
         when (item.itemId) {
-            R.id.settingsFragment -> {
-                navController.navigate(R.id.settingsFragment)
-            }
-            R.id.loginFragment -> {
+            R.id.logout -> {
+                PreferenceManager(this).saveTechnicianId(0)
                 navController.navigate(R.id.loginFragment)
             }
             R.id.menu_my_works -> {
@@ -300,13 +290,13 @@ class MainActivity : AppCompatActivity(), FragmentListener,
     }
 
     fun removeScrollingBehaviour() {
-        val params = navHostFrag.layoutParams as CoordinatorLayout.LayoutParams
-        params.behavior = null
+        /*val params = navHostFrag.layoutParams as CoordinatorLayout.LayoutParams
+        params.behavior = null*/
     }
 
     fun enableScrollingBehaviour() {
-        val params = navHostFrag.layoutParams as CoordinatorLayout.LayoutParams
-        params.behavior = AppBarLayout.ScrollingViewBehavior()
+        /*val params = navHostFrag.layoutParams as CoordinatorLayout.LayoutParams
+        params.behavior = AppBarLayout.ScrollingViewBehavior()*/
         //  navHostFrag.requestLayout()
     }
 

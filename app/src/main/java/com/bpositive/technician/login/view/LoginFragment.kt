@@ -15,6 +15,7 @@ import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.login.model.LoginRequest
 import com.bpositive.technician.login.viewModel.LoginViewModel
 import com.bpositive.technician.utils.ShowToast
+import com.bpositive.technician.utils.showKeyboard
 import com.bpositive.technician.utils.toast
 import kotlinx.android.synthetic.main.fragment_login.*
 
@@ -37,6 +38,8 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userNameField.showKeyboard()
 
         signinBtn.setOnClickListener {
             val user = userNameField.text.toString()
@@ -78,9 +81,10 @@ class LoginFragment : BaseFragment() {
             ), onSuccess = {
                 pbLogin.visibility = View.GONE
                 activity?.toast(it.message.toString())
-                PreferenceManager(context!!).saveTechnicianId(
-                    it.userDetails?.technicianId.toString().toInt()
-                )
+                PreferenceManager(context!!).apply {
+                    saveTechnicianId(it.userDetails?.technicianId.toString().toInt())
+                    saveTechnicianName(it.userDetails?.firstName + " " + it.userDetails?.lastName)
+                }
                 when (findNavController().currentDestination?.id) {
                     R.id.loginFragment -> findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }

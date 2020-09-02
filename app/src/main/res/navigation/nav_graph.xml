@@ -8,14 +8,16 @@
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.bpositive.technician.splash.view.SplashFragment"
-        android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph" />
         <action
             android:id="@+id/action_splashFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/languageFragment"
@@ -25,7 +27,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.bpositive.technician.home.view.HomeFragment"
-        android:label="fragment_home"
+        android:label="Technician Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/homeDetailFragment"
@@ -41,28 +43,31 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.bpositive.technician.myWorks.view.MyWorksFragment"
-        android:label="SettingsFragment" />
+        android:label="Settings" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.bpositive.technician.login.view.LoginFragment"
-        android:label="LoginFragment"
+        android:label="Login"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/worksFragment"
         android:name="com.bpositive.technician.myWorks.view.WorksFragment"
-        android:label="WorksFragment" />
+        android:label="My Works"
+        tools:layout="@layout/fragment_work" />
     <fragment
         android:id="@+id/myWorkFragment"
         android:name="com.bpositive.technician.myWorks.view.MyWorksFragment"
-        android:label="MyWorkFragment"
+        android:label="My Works"
         tools:layout="@layout/fragment_admin_map_all_list_view_main" />
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.bpositive.technician.myProfile.view.MyProfileFragment"
-        android:label="MyProfileFragment"
+        android:label="MyProfile"
         tools:layout="@layout/fragment_my_profile" />
 </navigation>

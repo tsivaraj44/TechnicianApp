@@ -2,6 +2,7 @@ package com.bpositive.technician.myProfile.service
 
 import com.bpositive.technician.myProfile.model.*
 import com.bpositive.technician.myProfile.model.request.ChangePasswordRequest
+import com.bpositive.technician.myProfile.model.request.UpdateProfileReq
 import com.bpositive.technician.utils.OnError
 import com.bpositive.technician.utils.OnSuccess
 import kotlinx.coroutines.Dispatchers
@@ -36,13 +37,13 @@ class MyProfileRepository(
     }
 
     override suspend fun updateMyProfile(
-        updateProfileRequest: UpdateProfileRequest,
+        updateProfileReq: UpdateProfileReq,
         onSuccess: OnSuccess<UpdateProfileResponse>,
         onError: OnError<String>
     ) {
         withContext(Dispatchers.IO) {
             try {
-                val response = api.updateMyProfile(updateProfileRequest = updateProfileRequest)
+                val response = api.updateMyProfile(updateProfileReq = updateProfileReq)
                 if (response.isSuccessful) {
                     response.body()?.let {
                         if (it.status!!)
@@ -93,7 +94,7 @@ interface IMyProfileRepository {
     )
 
     suspend fun updateMyProfile(
-        updateProfileRequest: UpdateProfileRequest,
+        updateProfileReq: UpdateProfileReq,
         onSuccess: OnSuccess<UpdateProfileResponse>,
         onError: OnError<String>
     )

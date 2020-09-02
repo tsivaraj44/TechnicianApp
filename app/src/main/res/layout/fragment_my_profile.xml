@@ -37,18 +37,40 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tlUserName"
+            android:id="@+id/tlUserFirstName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:hint="@string/label_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/spacing_tiny"
+            android:hint="@string/label_first_name"
+            app:layout_constraintEnd_toStartOf="@+id/tlUserLastName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivProfileImage">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etUserName"
+                android:id="@+id/etUserFirstName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:longClickable="false"
+                android:maxLength="30" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tlUserLastName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:hint="@string/label_last_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tlUserFirstName"
+            app:layout_constraintTop_toBottomOf="@id/ivProfileImage">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etUserLastName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -66,7 +88,7 @@
             android:hint="@string/label_email"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tlUserName">
+            app:layout_constraintTop_toBottomOf="@id/tlUserFirstName">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
@@ -141,7 +163,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/action_change_password"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/btnEditProfile"
@@ -152,7 +174,7 @@
             android:id="@+id/btnEditProfile"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/action_edit_profile"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/btnChangePassword"
@@ -178,7 +200,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/action_save_profile"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
@@ -190,7 +212,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_small"
-            android:backgroundTint="@color/light_blue"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/action_cancel"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@id/btnSaveProfile"

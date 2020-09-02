@@ -3,6 +3,7 @@ package com.bpositive.technician.core
 import android.content.Context
 import android.content.SharedPreferences
 import com.bpositive.technician.utils.sessionNames.TECHNICIAN_ID
+import com.bpositive.technician.utils.sessionNames.TECHNICIAN_NAME
 import com.bpositive.technician.utils.sessionNames.USER_LANGUAGE
 
 class PreferenceManager(context: Context) {
@@ -33,5 +34,10 @@ class PreferenceManager(context: Context) {
         preferences.edit().putInt(TECHNICIAN_ID, technicianId).apply()
 
     fun getTechnicianId() = preferences.getInt(TECHNICIAN_ID, 0)
+
+    fun saveTechnicianName(technicianName: String) =
+        preferences.edit().putString(TECHNICIAN_NAME, technicianName).apply()
+
+    fun getTechnicianName() = preferences.getString(TECHNICIAN_NAME, "")
 
 }

@@ -10,7 +10,7 @@
         android:id="@+id/tbMyWork"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/dark_blue"
+        android:background="@color/colorPrimary"
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="2dp"
@@ -21,5 +21,5 @@
         android:id="@+id/vpMyWork"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="24dp" />
+        android:layout_marginTop="@dimen/spacing_small" />
 </LinearLayout>

@@ -1,10 +1,14 @@
 package com.bpositive.technician.myProfile.view
 
 import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
@@ -13,23 +17,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.bpositive.R
+import com.bpositive.technician.BaseFragment
 import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.myProfile.model.ProfileRequest
-import com.bpositive.technician.myProfile.model.UpdateProfileRequest
 import com.bpositive.technician.myProfile.model.request.ChangePasswordRequest
+import com.bpositive.technician.myProfile.model.request.UpdateProfileReq
 import com.bpositive.technician.myProfile.viewModel.MyProfileViewModel
+import com.bpositive.technician.utils.ImageConstants.CAMERA
+import com.bpositive.technician.utils.ImageConstants.GALLERY
 import com.bpositive.technician.utils.hideKeyboard
+import com.bpositive.technician.utils.savePic
+import com.bpositive.technician.utils.showDialogToPick
 import com.bpositive.technician.utils.toast
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_my_profile.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 
-class MyProfileFragment : Fragment() {
+class MyProfileFragment : BaseFragment() {
 
     private val vmProfile by lazy {
         this.let {
@@ -38,15 +43,17 @@ class MyProfileFragment : Fragment() {
         }
     }
 
-    private var countryCode = ""
-    private var countryPosition = 0
     private val READ_EXTERNAL_STORAGE_REQUEST_CODE = 1001
-    private var mBitmap: Bitmap? = null
-    val completedJob = Job()
-    private val backgroundScope = CoroutineScope(Dispatchers.IO + completedJob)
-    private val destinationFileName = "ProfileImage"
     private var profileImage: String = ""
     private var emailPattern: String = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+
+    override fun getTitle(): String {
+        return "My Profile"
+    }
+
+    override fun getShowHomeToolbar(): Boolean {
+        return true
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +66,7 @@ class MyProfileFragment : Fragment() {
         btnEditProfile.setOnClickListener {
             gpCommonBtn.visibility = View.GONE
             gpEditBtn.visibility = View.VISIBLE
-            view.hideKeyboard()
+            //  view.hideKeyboard()
             //  onImagePicker()
         }
 
@@ -87,14 +94,14 @@ class MyProfileFragment : Fragment() {
         pbMyProfile?.visibility = View.VISIBLE
         vmProfile.getMyProfile(
             profileRequest = ProfileRequest(PreferenceManager(context!!).getTechnicianId()),
-//            profileRequest = ProfileRequest(1),
             onSuccess = {
                 it.details?.let { details ->
                     Glide.with(this)
                         .load(details.profileImage)
                         .circleCrop()
                         .into(ivProfileImage)
-                    etUserName.setText(details.firstName + " " + details.lastName)
+                    etUserFirstName.setText(details.firstName)
+                    etUserLastName.setText(details.lastName)
                     etEmail.setText(details.email)
                     etMobileNo.setText(details.countryCode + " " + details.mobileNumber)
                     etAddress.setText(details.address)
@@ -111,9 +118,18 @@ class MyProfileFragment : Fragment() {
     private fun updateMyProfile() {
         pbMyProfile?.visibility = View.VISIBLE
         vmProfile.updateMyProfile(
-            updateProfileRequest = UpdateProfileRequest(),
+            updateProfileReq = UpdateProfileReq(
+                etAddress.text.toString(),
+                etPincode.text.toString(),
+                "jnf66jdh77",
+                PreferenceManager(context!!).getTechnicianId(),
+                etUserLastName.text.toString(),
+                Build.MANUFACTURER,
+                etUserFirstName.text.toString(),
+                etEmail.text.toString()
+            ),
             onSuccess = {
-
+                activity?.toast(it.message.toString())
                 pbMyProfile?.visibility = View.GONE
             },
             onError = {
@@ -126,9 +142,12 @@ class MyProfileFragment : Fragment() {
         ChangePasswordDialog.showChangePwdDialog(childFragmentManager) {
             pbMyProfile?.visibility = View.VISIBLE
             vmProfile.changePassword(
-                changePasswordRequest = ChangePasswordRequest(),
+                changePasswordRequest = ChangePasswordRequest(
+                    it.newPassword,
+                    it.technicianId
+                ),
                 onSuccess = {
-
+                    activity?.toast(it.message.toString())
                     pbMyProfile?.visibility = View.GONE
                 },
                 onError = {
@@ -141,8 +160,8 @@ class MyProfileFragment : Fragment() {
 
     private fun isFieldValid(): Boolean {
         return when {
-            TextUtils.isEmpty(etUserName.text.toString()) -> {
-                etUserName.error = resources.getString(R.string.username_required)
+            TextUtils.isEmpty(etUserFirstName.text.toString()) -> {
+                etUserFirstName.error = resources.getString(R.string.username_required)
                 false
             }
             TextUtils.isEmpty(etEmail.text.toString()) -> {
@@ -154,11 +173,11 @@ class MyProfileFragment : Fragment() {
                 false
             }
             TextUtils.isEmpty(etAddress.text.toString()) -> {
-                etEmail.error = resources.getString(R.string.email_address_required)
+                etAddress.error = resources.getString(R.string.address_required)
                 false
             }
             TextUtils.isEmpty(etPincode.text.toString()) -> {
-                etMobileNo.error = resources.getString(R.string.mobile_no_required)
+                etPincode.error = resources.getString(R.string.pincode_required)
                 false
             }
             else -> true
@@ -173,13 +192,13 @@ class MyProfileFragment : Fragment() {
             true
     }
 
-    /*private fun onImagePicker() {
+    private fun onImagePicker() {
         if (checkRuntimePermission()) {
             this.showDialogToPick()
         } else {
             requestRuntimePermission()
         }
-    }*/
+    }
 
     private fun requestRuntimePermission() {
         requestPermissions(
@@ -223,96 +242,32 @@ class MyProfileFragment : Fragment() {
         }
     }
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == UCrop.REQUEST_CROP) {
-            backgroundScope.launch {
-                val one = async { handleCropResult(data) }
-                one.await()
-                withContext(Dispatchers.Main) {
-                    if (mBitmap != null)
-                        activity?.findViewById<AppCompatImageView>(R.id.userImage)
-                            ?.makeCircularImageWithBitmap(
-                                mBitmap!!
-                            )
-                }
-            }
-        } else if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
             when (requestCode) {
                 GALLERY -> {
-                    val uCrop = UCrop.of(
-                        Uri.fromFile(File(getRealPathFromURI(data!!.dataString))),
-                        Uri.fromFile(
-                            File(
-                                activity!!.cacheDir,
-                                destinationFileName
-                            )
-                        )
-                    )
-                        .withAspectRatio(4f, 4f)
-                        .withMaxResultSize(400, 400)
-                    val options = UCrop.Options()
-                    options.setToolbarColor(
-                        ContextCompat.getColor(
-                            activity!!,
-                            R.color.colorAccent
-                        )
-                    )
-                    options.setStatusBarColor(
-                        ContextCompat.getColor(
-                            activity!!,
-                            R.color.white
-                        )
-                    )
-                    options.setToolbarWidgetColor(
-                        ContextCompat.getColor(
-                            activity!!,
-                            R.color.colorPrimaryDark
-                        )
-                    )
-                    uCrop.withOptions(options)
-                    uCrop.start(
-                        activity as MainActivity,
-                        this@MyProfileFragment,
-                        UCrop.REQUEST_CROP
-                    )
+                    try {
+                        val uri = data?.data
+                        val bitmap = if (Build.VERSION.SDK_INT < 28) {
+                            MediaStore.Images.Media.getBitmap(context?.contentResolver, uri)
+                        } else {
+                            val source =
+                                ImageDecoder.createSource(context?.contentResolver!!, uri!!)
+                            ImageDecoder.decodeBitmap(source)
+                        }
+                        profileImage = context?.savePic(bitmap).toString()
+                    } catch (e: Exception) {
+                        context?.toast("Failed to load image")
+                    }
                 }
-
                 CAMERA -> {
                     val mBitmap = data?.extras?.get("data") as Bitmap
-                    val imagePath = context?.savePic(mBitmap)
-                    UCrop.of(
-                        Uri.fromFile(File(imagePath)),
-                        Uri.fromFile(
-                            File(
-                                activity!!.cacheDir,
-                                destinationFileName
-                            )
-                        )
-                    )
-                        .withAspectRatio(4f, 4f)
-                        .withMaxResultSize(400, 400)
-                        .start(activity as MainActivity, this@MyProfileFragment, UCrop.REQUEST_CROP)
+                    profileImage = context?.savePic(mBitmap).toString()
                 }
             }
         }
-    }*/
-
-    /*private fun handleCropResult(data: Intent?) {
-        val resultUri = data?.let { UCrop.getOutput(it) }
-        if (resultUri != null) {
-            val result = getRealPathFromURI(resultUri.toString())
-            val file = File(result)
-            val options: BitmapFactory.Options = BitmapFactory.Options()
-            options.inJustDecodeBounds = true
-            mBitmap = BitmapFactory.decodeFile(file.absolutePath)
-            val stream = ByteArrayOutputStream()
-            mBitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val image = stream.toByteArray()
-            profileImage = encodeToString(image, DEFAULT)
-        }
-    }*/
+    }
 
     private fun getRealPathFromURI(contentURI: String?): String? {
         val contentUri = Uri.parse(contentURI)

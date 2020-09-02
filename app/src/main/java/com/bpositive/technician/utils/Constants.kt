@@ -47,6 +47,7 @@ object sessionNames {
     const val USER_ID = "user_id"
     const val USER_LANGUAGE = "language"
     const val TECHNICIAN_ID = "technician_id"
+    const val TECHNICIAN_NAME = "technician_name"
     const val AUTH_TOKEN = "auth_token"
     const val MOBILE_NO = "mobile_number"
 }
@@ -72,4 +73,10 @@ object FilePath {
     const val PDF = "pdf/"
     const val DOC = "doc/"
     const val IMAGE = "image/"
+}
+
+object ImageConstants {
+    const val GALLERY = 1
+    const val CAMERA = 2
+    const val IMAGE_DIRECTORY = "Docs"
 }

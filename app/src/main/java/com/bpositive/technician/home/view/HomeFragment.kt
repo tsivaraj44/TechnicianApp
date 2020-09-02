@@ -5,21 +5,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.bpositive.technician.BaseFragment
-import com.bpositive.technician.MainActivity
 import com.bpositive.R
 import com.bpositive.databinding.FragmentHomeBinding
+import com.bpositive.technician.BaseFragment
+import com.bpositive.technician.MainActivity
+import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.home.model.DomainListItems
 import com.bpositive.technician.home.view.adapter.HomeDomainListAdapter
 import com.bpositive.technician.home.viewModel.HomeViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class HomeFragment : BaseFragment() {
 
     companion object {
@@ -30,7 +27,6 @@ class HomeFragment : BaseFragment() {
     private lateinit var dataBinding: FragmentHomeBinding
 
     private lateinit var domainListAdapter: HomeDomainListAdapter
-
 
     override fun getTitle(): String {
         return resources.getString(R.string.app_name)
@@ -58,6 +54,12 @@ class HomeFragment : BaseFragment() {
 
         return dataBinding.root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tvNoDomain.text =
+            resources.getString(R.string.label_welcome) + " " + PreferenceManager(context!!).getTechnicianName()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

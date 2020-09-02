@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bpositive.technician.core.NetworkManager
 import com.bpositive.technician.myProfile.model.*
 import com.bpositive.technician.myProfile.model.request.ChangePasswordRequest
+import com.bpositive.technician.myProfile.model.request.UpdateProfileReq
 import com.bpositive.technician.myProfile.service.IMyProfileRepository
 import com.bpositive.technician.myProfile.service.MyProfileApi
 import com.bpositive.technician.utils.OnError
@@ -26,12 +27,12 @@ class MyProfileViewModel(private val iMyProfileRepository: IMyProfileRepository)
     }
 
     fun updateMyProfile(
-        updateProfileRequest: UpdateProfileRequest,
+        updateProfileReq: UpdateProfileReq,
         onSuccess: OnSuccess<UpdateProfileResponse>,
         onError: OnError<String>
     ) {
         viewModelScope.launch {
-            iMyProfileRepository.updateMyProfile(updateProfileRequest, onSuccess, onError)
+            iMyProfileRepository.updateMyProfile(updateProfileReq, onSuccess, onError)
         }
     }
 
