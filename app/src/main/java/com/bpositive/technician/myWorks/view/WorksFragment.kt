@@ -31,14 +31,6 @@ class WorksFragment(val type: Int) : Fragment() {
         }
     }
 
-    /*override fun setMenuVisibility(menuVisible: Boolean) {
-        super.setMenuVisibility(menuVisible)
-        if (menuVisible && isVisible && isResumed && !isApiCalled) {
-            getMyWork()
-            isApiCalled = true
-        }
-    }*/
-
     private var rootView: View? = null
     private var isApiCalled = false
     override fun onCreateView(
@@ -81,7 +73,6 @@ class WorksFragment(val type: Int) : Fragment() {
     }
 
     fun getMyWork() {
-        println("GET_____$type")
         pbWorks?.visibility = View.VISIBLE
         viewModel.getWorkList(myWorkRequest = MyWorkRequest(1, type), onSuccess = {
             it.details?.let { workList ->

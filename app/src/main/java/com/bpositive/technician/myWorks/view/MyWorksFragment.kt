@@ -16,7 +16,6 @@ import com.bpositive.technician.utils.TravelStatus.IN_PROGRESS
 import com.bpositive.technician.utils.TravelStatus.PENDING
 import com.bpositive.technician.utils.TravelStatus.UP_COMING
 import com.bpositive.technician.utils.sessionNames
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_my_works.*
 import kotlinx.android.synthetic.main.fragment_settings.*
 
@@ -70,10 +69,7 @@ class MyWorksFragment : BaseFragment() {
 
         val adapter = MyWorkViewPagerAdapter(childFragmentManager)
         adapter.addMyWorksList(fragList, fragTitle)
-        /*adapter.addMyWorks(upComingFrag, "Upcoming")
-        adapter.addMyWorks(inProgressFrag, "In-Progress")
-        adapter.addMyWorks(pendingFrag, "Pending")
-        adapter.addMyWorks(completedFrag, "Completed")*/
+
         vpMyWork.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
@@ -82,40 +78,16 @@ class MyWorksFragment : BaseFragment() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-                /*for (pos in 0 until adapter.count)
-                    adapter.getItem(pos).setMenuVisibility(position == pos)*/
             }
 
             override fun onPageSelected(position: Int) {
                 fragList[position].getMyWork()
-                println("GET__________________$position")
             }
         })
 
         vpMyWork.adapter = adapter
         vpMyWork.currentItem = 0
         tbMyWork.setupWithViewPager(vpMyWork)
-
-//        adapter.addMyWorksList(fragList, fragTitle)
-//        adapter.notifyDataSetChanged()
-        //  TODO  ::  ::  Need to check
-        //  vpMyWork?.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tbMyWork))
-
-        /*vpMyWork.setOnTouchListener { view, motionEvent ->
-            true
-        }*/
-
-        /*tbMyWork.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                if (tab != null)
-                    vpMyWork.currentItem = tab.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {}
-        })*/
-
     }
 
 }
