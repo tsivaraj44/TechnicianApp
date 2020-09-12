@@ -34,6 +34,12 @@ class CompletedDialogFragment(
 
     private val picList = mutableListOf<String>()
 
+    override fun onResume() {
+        super.onResume()
+        val width = (resources.displayMetrics.widthPixels * 1)
+        dialog?.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
