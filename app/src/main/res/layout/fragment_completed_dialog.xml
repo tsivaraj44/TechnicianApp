@@ -22,12 +22,24 @@
         android:layout_margin="@dimen/spacing_small"
         android:hint="Enter your comment here" />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/ivTakePic"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/spacing_tiny"
-        android:src="@drawable/ic_menu_camera" />
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivTakePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_tiny"
+            android:src="@drawable/ic_menu_camera" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivTakeVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_tiny"
+            android:src="@drawable/ic_videocam" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPic"

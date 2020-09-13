@@ -118,4 +118,8 @@
     <string name="label_last_name">Last Name</string>
     <string name="label_first_name">First Name</string>
 
+    <string name="select_video_from_gallery">Select video from gallery</string>
+    <string name="select_take_video">Take a video on the camera</string>
+    <string name="video_saved_to">Video Saved to </string>
+
 </resources>

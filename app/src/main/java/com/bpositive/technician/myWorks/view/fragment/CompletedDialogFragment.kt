@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,10 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.bpositive.R
 import com.bpositive.technician.myWorks.view.adapter.MyPictureAdapter
-import com.bpositive.technician.utils.ImageConstants
-import com.bpositive.technician.utils.savePic
-import com.bpositive.technician.utils.showDialogToPick
-import com.bpositive.technician.utils.toast
+import com.bpositive.technician.utils.*
 import kotlinx.android.synthetic.main.fragment_completed_dialog.*
 
 typealias costWithComment = (String, String) -> Unit
@@ -51,11 +49,15 @@ class CompletedDialogFragment(
 
         btnComplete.text = name
         ivTakePic.setOnClickListener {
-            picOrTakeImage()
+            picOrTakeImage(true)
         }
 
         rvPic.adapter = MyPictureAdapter {
             picList.removeAt(it)
+        }
+
+        ivTakeVideo.setOnClickListener {
+            picOrTakeImage(false)
         }
 
         btnComplete.setOnClickListener {
@@ -76,21 +78,20 @@ class CompletedDialogFragment(
         return true
     }
 
-    private fun picOrTakeImage() {
-        if (checkRuntimePermission()) {
-            this.showDialogToPick()
+    private fun picOrTakeImage(imageOrVideo: Boolean) {
+        if (checkRuntimePermission()) {  //  true -> Image, false -> Video
+            if (imageOrVideo) showDialogToPick() else showDialogToPickVideo()
         } else {
             requestRuntimePermission()
         }
     }
 
     private fun checkRuntimePermission(): Boolean {
-        val writeablePermission =
-            ContextCompat.checkSelfPermission(
-                context!!,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-        if (writeablePermission != PackageManager.PERMISSION_GRANTED) {
+        val writeablePermission1 =
+            ContextCompat.checkSelfPermission(context!!, Manifest.permission.READ_EXTERNAL_STORAGE)
+        val writeablePermission2 =
+            ContextCompat.checkSelfPermission(context!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        if (writeablePermission1 != PackageManager.PERMISSION_GRANTED && writeablePermission2 != PackageManager.PERMISSION_GRANTED) {
             return false
         }
         return true
@@ -99,7 +100,8 @@ class CompletedDialogFragment(
     private fun requestRuntimePermission() {
         requestPermissions(
             arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
             ), READ_EXTERNAL_STORAGE_REQUEST_CODE
         )
     }
@@ -114,9 +116,13 @@ class CompletedDialogFragment(
                 val granted = grantResults.isNotEmpty()
                         && permissions.isNotEmpty()
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[1] == PackageManager.PERMISSION_GRANTED
                         && !ActivityCompat.shouldShowRequestPermissionRationale(
                     activity!!,
                     permissions[0]
+                ) && !ActivityCompat.shouldShowRequestPermissionRationale(
+                    activity!!,
+                    permissions[1]
                 )
                 when (granted) {
                     true -> this.showDialogToPick()
@@ -151,8 +157,42 @@ class CompletedDialogFragment(
                     picList.add(context?.savePic(bitmap).toString())
                     (rvPic.adapter as MyPictureAdapter).addPic(bitmap)
                 }
+                ImageConstants.CHOOSE_VIDEO -> {
+                    val selectedImageUri: Uri? = data?.data
+                    val selectedPath = getPath(selectedImageUri)
+                    println("GET_____VIDEO_____PATH____C______$selectedPath")
+                }
+                ImageConstants.TAKE_VIDEO -> {
+                    val selectedImageUri: Uri? = data?.data
+                    val selectedPath = getPath(selectedImageUri)
+                    println("GET_____VIDEO_____PATH____T______${selectedPath}")
+                }
             }
         }
+    }
+
+    private fun getPath(uri: Uri?): String? {
+        var cursor = activity?.contentResolver?.query(uri, null, null, null, null)
+        cursor?.moveToFirst()
+        var documentId = cursor?.getString(0)
+        documentId = documentId?.substring(documentId.lastIndexOf(":") + 1)
+        cursor?.close()
+        cursor = activity?.contentResolver?.query(
+            MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+            null,
+            MediaStore.Images.Media._ID + " = ? ",
+            arrayOf(documentId),
+            null
+        )
+        cursor?.moveToFirst()
+        var path: String? = ""
+        try {
+            path = cursor?.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA))
+            cursor?.close()
+        } catch (e: Exception) {
+
+        }
+        return path
     }
 
     companion object {

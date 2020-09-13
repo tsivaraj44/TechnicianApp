@@ -79,4 +79,6 @@ object ImageConstants {
     const val GALLERY = 1
     const val CAMERA = 2
     const val IMAGE_DIRECTORY = "Docs"
+    const val CHOOSE_VIDEO = 3
+    const val TAKE_VIDEO = 4
 }

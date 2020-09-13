@@ -10,10 +10,9 @@ import com.bpositive.technician.utils.ApiConstants.INDEX
 import com.bpositive.technician.utils.ApiConstants.MOVE_COMPLETED
 import com.bpositive.technician.utils.ApiConstants.MOVE_TO_PENDING
 import com.bpositive.technician.utils.ApiConstants.START_WORK
+import okhttp3.MultipartBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface MyWorkApi {
 
@@ -40,5 +39,9 @@ interface MyWorkApi {
         @Query("type") type: String = MOVE_COMPLETED,
         @Body moveToPendingReq: MoveToPendingReq
     ): Response<StartWorkResponse>
+
+    @Multipart
+    @POST("/imagefolder/index")
+    suspend fun uploadVideoToServer(@Part video: MultipartBody.Part)
 
 }

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.media.MediaScannerConnection
 import android.provider.MediaStore
+import android.provider.MediaStore.Files.FileColumns.MEDIA_TYPE_VIDEO
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -18,8 +19,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.bpositive.R
 import com.bpositive.technician.utils.ImageConstants.CAMERA
+import com.bpositive.technician.utils.ImageConstants.CHOOSE_VIDEO
 import com.bpositive.technician.utils.ImageConstants.GALLERY
 import com.bpositive.technician.utils.ImageConstants.IMAGE_DIRECTORY
+import com.bpositive.technician.utils.ImageConstants.TAKE_VIDEO
 import com.bumptech.glide.Glide
 import java.io.ByteArrayOutputStream
 import java.io.File
@@ -156,4 +159,95 @@ fun Context.savePic(bitmap: Bitmap): String {
         e.printStackTrace()
     }
     return ""
+}
+
+fun Fragment.showDialogToPickVideo() {
+    val pickDialog = android.app.AlertDialog.Builder(this.context)
+    pickDialog.setTitle(resources.getString(R.string.choose_an_action))
+    val pictureSelection = arrayOf(
+        resources.getString(R.string.select_video_from_gallery),
+        resources.getString(R.string.select_take_video)
+    )
+    pickDialog.setItems(pictureSelection) { dialog, which ->
+        when (which) {
+            0 -> chooseVideoFromGallery()
+            1 -> takeVideo()
+        }
+    }
+    pickDialog.show()
+}
+
+fun Fragment.chooseVideoFromGallery() {
+    /*startActivityForResult(
+        Intent(Intent.ACTION_GET_CONTENT, MediaStore.Video.Media.EXTERNAL_CONTENT_URI),
+        VIDEO_FILE
+    )*/
+
+    val intent = Intent()
+    intent.type = "video/*"
+    intent.action = Intent.ACTION_GET_CONTENT
+    startActivityForResult(Intent.createChooser(intent, "Select a Video "), CHOOSE_VIDEO)
+}
+
+/*
+private File createImageFile() throws IOException {
+    // Create an image file name
+    String imageFileName = "myvideo";
+    File storageDir = new File(Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_DCIM), "Camera");
+    File image = File.createTempFile(
+            imageFileName,  /* prefix */
+            ".mp4",         /* suffix */
+            storageDir      /* directory */
+    );
+
+    // Save a file: path for use with ACTION_VIEW intents
+    Log.v("myTag","FAB create image");
+    mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+    return image;
+}
+*/
+
+fun Fragment.takeVideo() {
+    val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+    if (intent.resolveActivity(context?.packageManager) != null) {
+        startActivityForResult(intent, TAKE_VIDEO)
+    }
+    /*try {
+        val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
+        val videoUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            FileProvider.getUriForFile(
+                context!!,
+                context?.packageName + ".provider",
+                context?.getOutputMediaFile(MEDIA_TYPE_VIDEO)!!
+            )
+        } else {
+            Uri.fromFile(context?.getOutputMediaFile(MEDIA_TYPE_VIDEO))
+        }
+        intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1)  // set video quality
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, videoUri) // set the image file name
+      //  intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,5)
+        startActivityForResult(intent, TAKE_VIDEO)
+    } catch (e: Exception) {
+        println("GET___________ERROR_________$e")
+    }*/
+}
+
+fun Context.getOutputMediaFile(mediaTypeVideo: Int): File {
+    val directory = File(this.filesDir, IMAGE_DIRECTORY)
+    if (!directory.exists()) directory.mkdirs()
+    var file = File(directory.path)
+    try { // Create a media file name
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        if (mediaTypeVideo == MEDIA_TYPE_VIDEO) {
+            file = File(directory.path + File.separator + "VID_" + timeStamp + ".mp4", ".mp4")
+            file.createNewFile()
+        }
+        this.toast(resources.getString(R.string.video_saved_to) + " " + file.absolutePath)
+        return file
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return file
 }
