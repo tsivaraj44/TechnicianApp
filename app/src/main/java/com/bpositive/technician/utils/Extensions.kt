@@ -42,11 +42,12 @@ fun Activity.ShowToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 }
 
-fun View.makeCircularImage(drawable: String) {
+fun View.makeCircularImage(drawable: String, placeHolder: Int? = null) {
     Glide
         .with(context)
         .load(drawable)
         .circleCrop()
+        .placeholder(placeHolder ?: R.color.white)
         .into(this as ImageView)
 }
 
@@ -210,7 +211,7 @@ private File createImageFile() throws IOException {
 
 fun Fragment.takeVideo() {
     val intent = Intent(MediaStore.ACTION_VIDEO_CAPTURE)
-    if (intent.resolveActivity(context?.packageManager) != null) {
+    if (intent.resolveActivity(context?.packageManager!!) != null) {
         startActivityForResult(intent, TAKE_VIDEO)
     }
     /*try {

@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bpositive.R
 import com.bpositive.technician.core.SessionManager
-import com.bpositive.databinding.AdapterLanguageBinding
 import com.bpositive.technician.settings.model.LanguageModel
 import com.bpositive.technician.utils.sessionNames
 import kotlinx.android.synthetic.main.adapter_language.view.*
@@ -24,21 +24,18 @@ class LanguageAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var layoutInflater = LayoutInflater.from(parent.context)
-
-        val adapterLanguageBinding =
-            AdapterLanguageBinding.inflate(layoutInflater, parent, false)
-        return adapterLanguageBinding?.let { LanguageAdapterViewHolder(it) }!!
+        return LanguageAdapterViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.adapter_language, parent, false)
+        )
     }
 
-    inner class LanguageAdapterViewHolder(private var it: AdapterLanguageBinding) :
-        RecyclerView.ViewHolder(it.root) {
+    inner class LanguageAdapterViewHolder(private var it: View) :
+        RecyclerView.ViewHolder(it) {
         fun bind(
             mainModel: LanguageModel,
             clickListener: LanguageAdapter.OnItemClickListener
         ) {
-            it.languageItem = mainModel
-            it.root.setOnClickListener {
+            it.setOnClickListener {
                 clickListener.languageItemClickListener(adapterPosition)
             }
         }

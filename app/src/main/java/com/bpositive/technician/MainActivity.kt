@@ -173,6 +173,7 @@ class MainActivity : AppCompatActivity(), FragmentListener,
     override fun setTitle(title: String) {
         Log.v("title", "My title: $title")
         titleName = title
+        toolbar.title = title
     }
 
     override fun setShowHomeViews(home: Boolean) {
@@ -199,16 +200,21 @@ class MainActivity : AppCompatActivity(), FragmentListener,
                 //  R.id.homeDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.homeFragment)
                 R.id.homeFragment -> finish()
                 R.id.loginFragment -> finish()
-                else -> super.onBackPressed()
+                R.id.workDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.action_workDetailFragment_to_myWorkFragment)
+                else -> findNavController(R.id.navHostFrag).navigateUp()
             }
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.navHostFrag)
-        when (findNavController(R.id.navHostFrag).currentDestination?.id) {
+        when (navController.currentDestination?.id) {
             R.id.homeDetailFragment -> {
-                findNavController(R.id.navHostFrag).navigate(R.id.homeFragment)
+                navController.navigate(R.id.homeFragment)
+                return false
+            }
+            R.id.workDetailFragment -> {
+                navController.navigate(R.id.action_workDetailFragment_to_myWorkFragment)
                 return false
             }
         }

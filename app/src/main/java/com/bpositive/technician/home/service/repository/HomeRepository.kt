@@ -1,69 +1,50 @@
 package com.bpositive.technician.home.service.repository
 
-import com.bpositive.technician.core.NetworkManager
-import com.bpositive.technician.home.model.DomainListItems
-import com.bpositive.technician.home.model.HomeDomainListResponse
-import com.bpositive.technician.home.service.HomeService
-import com.bpositive.technician.utils.*
-import kotlinx.coroutines.CoroutineScope
+import com.bpositive.technician.home.model.ResSettlement
+import com.bpositive.technician.myProfile.model.ProfileRequest
+import com.bpositive.technician.myWorks.model.response.MyWorkResponse
+import com.bpositive.technician.myWorks.service.MyWorkApi
+import com.bpositive.technician.utils.OnError
+import com.bpositive.technician.utils.OnSuccess
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.withContext
 
-class HomeRepository {
+class HomeRepository(private val api: MyWorkApi) : IHomeRepository {
 
-    val completedJOb = Job()
-    private val backgroundScope = CoroutineScope(Dispatchers.IO + completedJOb)
-    private val foregroundScope = CoroutineScope(Dispatchers.Main)
-
-
-    private val homeRepository: HomeService by lazy {
-        NetworkManager.baseURL(BaseData.BASE_URL).serviceClass(HomeService::class.java)
-            .create<HomeService>()
-    }
-
-    fun callDomainListAPI(taskCallback: TaskCallback<HomeDomainListResponse>) {
-
-        /*backgroundScope.launch {
-            when (val result: Result<HomeDomainListResponse> =
-                homeRepository.getHomeDomainList(type = APITypes.getdomains).awaitResult()) {
-
-                is Result.Ok -> foregroundScope.launch { taskCallback.onComplete(result.value) }
-
-                is Result.Error -> foregroundScope.launch { taskCallback.onException(result.exception) }
-
-                is Result.Exception -> foregroundScope.launch { taskCallback.onException(result.exception) }
-
+    override suspend fun getSettlement(
+        profileRequest: ProfileRequest,
+        onSuccess: OnSuccess<ResSettlement>,
+        onError: OnError<String>
+    ) {
+        withContext(Dispatchers.IO) {
+            try {
+                val response = api.getSettlement(profileRequest = profileRequest)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        if (it.status!!)
+                            withContext(Dispatchers.Main) { onSuccess(it) }
+                        else
+                            withContext(Dispatchers.Main) { onError(it.message.toString()) }
+                    }
+                } else
+                    withContext(Dispatchers.Main) { onError(response.message().toString()) }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) { onError(e.toString()) }
             }
-        }*/
-
-        // Just Uncomment the above code for API call
-
-        var domainList1 = DomainListItems(1,"Category1","")
-        var domainList2 = DomainListItems(2,"Category2","")
-        var domainList3 = DomainListItems(3,"Category3","")
-        var domainList4 = DomainListItems(4,"Category4","")
-        var domainList5 = DomainListItems(5,"Category5","")
-        var domainList6 = DomainListItems(6,"Category6","")
-        var domainList7 = DomainListItems(7,"Category7","")
-        var domainList8 = DomainListItems(8,"Category8","")
-        var domainList9 = DomainListItems(9,"Category9","")
-
-        val details = ArrayList<DomainListItems>()
-        details.add(domainList1)
-        details.add(domainList2)
-        details.add(domainList3)
-        details.add(domainList4)
-        details.add(domainList5)
-        details.add(domainList6)
-        details.add(domainList7)
-        details.add(domainList8)
-        details.add(domainList9)
-
-        var response = HomeDomainListResponse("Test Message,",1,
-            details)
-
-        taskCallback.onComplete(response)
-
+        }
     }
 
+}
+
+interface IHomeRepository {
+    suspend fun getSettlement(
+        profileRequest: ProfileRequest,
+        onSuccess: OnSuccess<ResSettlement>,
+        onError: OnError<String>
+    )
+
+    companion object Factory {
+        fun getInstance(api: MyWorkApi): IHomeRepository = HomeRepository(api)
+    }
 }

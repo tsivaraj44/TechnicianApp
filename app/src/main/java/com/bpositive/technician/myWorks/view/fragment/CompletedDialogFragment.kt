@@ -172,7 +172,7 @@ class CompletedDialogFragment(
     }
 
     private fun getPath(uri: Uri?): String? {
-        var cursor = activity?.contentResolver?.query(uri, null, null, null, null)
+        var cursor = activity?.contentResolver?.query(uri!!, null, null, null, null)
         cursor?.moveToFirst()
         var documentId = cursor?.getString(0)
         documentId = documentId?.substring(documentId.lastIndexOf(":") + 1)

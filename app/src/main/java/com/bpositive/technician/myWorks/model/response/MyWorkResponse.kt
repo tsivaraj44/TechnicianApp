@@ -1,6 +1,8 @@
 package com.bpositive.technician.myWorks.model.response
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 data class MyWorkResponse(
     val details: List<Works?>? = null,
@@ -9,6 +11,7 @@ data class MyWorkResponse(
     val status: Boolean? = null
 )
 
+@Parcelize
 data class Works(
     val reason: String? = null,
     @SerializedName("category_name") val categoryName: String? = null,
@@ -25,5 +28,5 @@ data class Works(
     @SerializedName("customer_name") val customerName: String? = null,
     @SerializedName("customer_id") val customerId: String? = null,
     @SerializedName("visit_date") val visitDate: String? = null
-)
+) : Parcelable
 

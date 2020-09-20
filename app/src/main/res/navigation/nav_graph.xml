@@ -39,11 +39,6 @@
         android:name="com.bpositive.technician.caseDetails.view.CaseDetailsFragment"
         android:label="CaseDetailsFragment" />
 
-    <!--Menu-->
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.bpositive.technician.myWorks.view.MyWorksFragment"
-        android:label="Settings" />
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.bpositive.technician.login.view.LoginFragment"
@@ -64,10 +59,27 @@
         android:id="@+id/myWorkFragment"
         android:name="com.bpositive.technician.myWorks.view.MyWorksFragment"
         android:label="My Works"
-        tools:layout="@layout/fragment_admin_map_all_list_view_main" />
+        tools:layout="@layout/fragment_admin_map_all_list_view_main">
+        <action
+            android:id="@+id/action_myWorkFragment_to_workDetailFragment"
+            app:destination="@id/workDetailFragment"
+            app:popUpTo="@id/myWorkFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/myProfileFragment"
         android:name="com.bpositive.technician.myProfile.view.MyProfileFragment"
         android:label="MyProfile"
         tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/workDetailFragment"
+        android:name="com.bpositive.technician.myWorks.view.WorkDetailFragment"
+        android:label="Work Detail"
+        tools:layout="@layout/fragment_work_detail">
+        <action
+            android:id="@+id/action_workDetailFragment_to_myWorkFragment"
+            app:destination="@id/myWorkFragment"
+            app:popUpTo="@id/workDetailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

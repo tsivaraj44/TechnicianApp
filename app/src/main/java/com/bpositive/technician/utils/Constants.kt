@@ -15,6 +15,7 @@ object ApiConstants {
     const val GET_PROFILE = "get_profile_details"
     const val UPDATE_PROFILE = "update_profile_details"
     const val CHANGE_PASSWORD = "change_password"
+    const val SETTLEMENT = "settlement_history"
 }
 
 object TravelStatus {
@@ -29,6 +30,14 @@ object BundleConstants {
     const val CASE_DETAILS = "case_details"
     const val DOMAIN_IMG_URL = "extras_domain_img_url"
     const val DOMAIN_NAME = "extras_domain_name"
+
+    const val WORK = "work"
+    const val WORK_STATUS = "work_status"
+    const val MESSAGE = "message"
+}
+
+enum class WorkStatus {
+    UPCOMING, IN_PROGRESS, PENDING, COMPLETED
 }
 
 object orderByConstants {
@@ -50,6 +59,7 @@ object sessionNames {
     const val TECHNICIAN_NAME = "technician_name"
     const val AUTH_TOKEN = "auth_token"
     const val MOBILE_NO = "mobile_number"
+    const val TOKEN = "token"
 }
 
 object Language {
@@ -81,4 +91,8 @@ object ImageConstants {
     const val IMAGE_DIRECTORY = "Docs"
     const val CHOOSE_VIDEO = 3
     const val TAKE_VIDEO = 4
+}
+
+object BroadCastConstant {
+    const val LOCAL_BROADCAST = "LOCAL_BROADCAST"
 }

@@ -4,32 +4,36 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bpositive.R
+import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.myWorks.model.request.MoveToPendingReq
 import com.bpositive.technician.myWorks.model.request.MyWorkRequest
-import com.bpositive.technician.myWorks.model.request.StartWorkRequest
 import com.bpositive.technician.myWorks.model.response.Works
 import com.bpositive.technician.myWorks.view.adapter.MyWorkAdapter
 import com.bpositive.technician.myWorks.view.fragment.CompletedDialogFragment
 import com.bpositive.technician.myWorks.viewModel.MyWorksViewModel
+import com.bpositive.technician.utils.BundleConstants.WORK
+import com.bpositive.technician.utils.BundleConstants.WORK_STATUS
 import com.bpositive.technician.utils.TravelStatus.COMPLETED
 import com.bpositive.technician.utils.TravelStatus.IN_PROGRESS
 import com.bpositive.technician.utils.TravelStatus.PENDING
 import com.bpositive.technician.utils.TravelStatus.UP_COMING
+import com.bpositive.technician.utils.WorkStatus
 import com.bpositive.technician.utils.showMoveTo
 import com.bpositive.technician.utils.toast
 import kotlinx.android.synthetic.main.fragment_work.*
 
-class WorksFragment(val type: Int) : Fragment() {
+class WorksFragment(val type: Int, val viewModel: MyWorksViewModel) : Fragment() {
 
-    val viewModel: MyWorksViewModel by lazy {
+    /*val viewModel: MyWorksViewModel by lazy {
         this.let {
             ViewModelProviders.of(it, MyWorksViewModel.Factory(context))
                 .get(MyWorksViewModel::class.java)
         }
-    }
+    }*/
 
     private var rootView: View? = null
     private var isApiCalled = false
@@ -38,8 +42,7 @@ class WorksFragment(val type: Int) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (rootView == null)
-            rootView = inflater.inflate(R.layout.fragment_work, container, false)
+        if (rootView == null) rootView = inflater.inflate(R.layout.fragment_work, container, false)
         return rootView;
     }
 
@@ -51,21 +54,47 @@ class WorksFragment(val type: Int) : Fragment() {
             strWork.isRefreshing = false
         }
 
+        /*strWork.post {
+            getMyWork()
+            strWork.isRefreshing = false
+        }*/
+
         rvMyWork.adapter = MyWorkAdapter(type) { work ->
             when (type) {
                 UP_COMING -> {
-                    startWork(work)
+                    when (findNavController().currentDestination?.id) {
+                        R.id.myWorkFragment -> {
+                            findNavController().navigate(
+                                R.id.action_myWorkFragment_to_workDetailFragment,
+                                bundleOf(WORK to work, WORK_STATUS to WorkStatus.UPCOMING)
+                            )
+                        }
+                    }
                 }
                 IN_PROGRESS -> {
-                    moveTo(work)
+                    when (findNavController().currentDestination?.id) {
+                        R.id.myWorkFragment -> {
+                            findNavController().navigate(
+                                R.id.action_myWorkFragment_to_workDetailFragment,
+                                bundleOf(WORK to work, WORK_STATUS to IN_PROGRESS)
+                            )
+                        }
+                    }
                 }
                 PENDING -> {
-                    completeWork(work)
+                    when (findNavController().currentDestination?.id) {
+                        R.id.myWorkFragment -> {
+                            findNavController().navigate(
+                                R.id.action_myWorkFragment_to_workDetailFragment,
+                                bundleOf(WORK to work, WORK_STATUS to PENDING)
+                            )
+                        }
+                    }
                 }
             }
         }
 
-        if (type == UP_COMING && !isApiCalled) {
+        if (type == IN_PROGRESS && !isApiCalled) {
             getMyWork()
             isApiCalled = true
         }
@@ -74,32 +103,21 @@ class WorksFragment(val type: Int) : Fragment() {
 
     fun getMyWork() {
         pbWorks?.visibility = View.VISIBLE
-        viewModel.getWorkList(myWorkRequest = MyWorkRequest(1, type), onSuccess = {
-            it.details?.let { workList ->
-                if (!workList.isNullOrEmpty()) {
-                    (rvMyWork?.adapter as MyWorkAdapter).addWorkList(workList as List<Works>)
-                    tvNoWorks?.visibility = View.GONE
-                }
-            }
-            pbWorks?.visibility = View.GONE
-        }, onError = {
-            activity?.toast(it)
-            pbWorks?.visibility = View.GONE
-        })
-    }
-
-    private fun startWork(work: Works) {
-        pbWorks.visibility = View.VISIBLE
-        viewModel.startWork(
-            startWorkRequest = StartWorkRequest(
-                work.jobId.toString().toInt(),
-                work.technicianId.toString().toInt()
+        viewModel.getWorkList(
+            myWorkRequest = MyWorkRequest(
+                PreferenceManager(context!!).getTechnicianId(),
+                type
             ), onSuccess = {
-                pbWorks.visibility = View.GONE
-                activity?.toast(it.message.toString())
+                it.details?.let { workList ->
+                    if (!workList.isNullOrEmpty()) {
+                        (rvMyWork?.adapter as MyWorkAdapter).addWorkList(workList as List<Works>)
+                        tvNoWorks?.visibility = View.GONE
+                    }
+                }
+                pbWorks?.visibility = View.GONE
             }, onError = {
                 activity?.toast(it)
-                pbWorks.visibility = View.GONE
+                pbWorks?.visibility = View.GONE
             })
     }
 
@@ -152,8 +170,16 @@ class WorksFragment(val type: Int) : Fragment() {
         }.show(childFragmentManager, CompletedDialogFragment.javaClass.simpleName)
     }
 
+    override fun onDestroyView() {
+        if (view != null) {
+            val parentViewGroup = view?.parent as ViewGroup?
+            parentViewGroup?.removeAllViews();
+        }
+        super.onDestroyView()
+    }
+
     companion object {
-        fun newInstance(type: Int) = WorksFragment(type)
+        fun newInstance(type: Int, viewModel: MyWorksViewModel) = WorksFragment(type, viewModel)
     }
 
 }

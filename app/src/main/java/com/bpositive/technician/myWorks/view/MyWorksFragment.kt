@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
 import com.bpositive.R
 import com.bpositive.technician.BaseFragment
 import com.bpositive.technician.MainActivity
 import com.bpositive.technician.core.SessionManager
 import com.bpositive.technician.myWorks.view.adapter.MyWorkViewPagerAdapter
+import com.bpositive.technician.myWorks.viewModel.MyWorksViewModel
 import com.bpositive.technician.utils.TravelStatus.COMPLETED
 import com.bpositive.technician.utils.TravelStatus.IN_PROGRESS
 import com.bpositive.technician.utils.TravelStatus.PENDING
@@ -22,6 +24,12 @@ import kotlinx.android.synthetic.main.fragment_settings.*
 class MyWorksFragment : BaseFragment() {
 
     private lateinit var sessionManager: SessionManager
+    val viewModel: MyWorksViewModel by lazy {
+        this.let {
+            ViewModelProviders.of(it, MyWorksViewModel.Factory(context))
+                .get(MyWorksViewModel::class.java)
+        }
+    }
 
     override fun getTitle(): String {
         return "My Works"
@@ -56,19 +64,20 @@ class MyWorksFragment : BaseFragment() {
         }
 
         val fragList = mutableListOf<WorksFragment>()
-        fragList.add(WorksFragment.newInstance(UP_COMING))
-        fragList.add(WorksFragment.newInstance(IN_PROGRESS))
-        fragList.add(WorksFragment.newInstance(PENDING))
-        fragList.add(WorksFragment.newInstance(COMPLETED))
+        fragList.add(WorksFragment.newInstance(IN_PROGRESS, viewModel))
+        fragList.add(WorksFragment.newInstance(PENDING, viewModel))
+        fragList.add(WorksFragment.newInstance(UP_COMING, viewModel))
+        fragList.add(WorksFragment.newInstance(COMPLETED, viewModel))
 
         val fragTitle = mutableListOf<String>()
-        fragTitle.add("Upcoming")
         fragTitle.add("In-Progress")
         fragTitle.add("Pending")
+        fragTitle.add("Upcoming")
         fragTitle.add("Completed")
 
         val adapter = MyWorkViewPagerAdapter(childFragmentManager)
         adapter.addMyWorksList(fragList, fragTitle)
+        vpMyWork.adapter = adapter
 
         vpMyWork.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
@@ -85,8 +94,6 @@ class MyWorksFragment : BaseFragment() {
             }
         })
 
-        vpMyWork.adapter = adapter
-        vpMyWork.currentItem = 0
         tbMyWork.setupWithViewPager(vpMyWork)
     }
 

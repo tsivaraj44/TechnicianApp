@@ -1,74 +1,40 @@
 package com.bpositive.technician.home.viewModel
 
-import android.view.View
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.bpositive.technician.BaseViewModel
-import com.bpositive.technician.home.model.DomainListItems
-import com.bpositive.technician.home.model.HomeDomainListResponse
-import com.bpositive.technician.home.service.repository.HomeRepository
-import com.bpositive.technician.utils.TaskCallback
+import android.content.Context
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.bpositive.technician.core.NetworkManager
+import com.bpositive.technician.home.model.ResSettlement
+import com.bpositive.technician.home.service.repository.IHomeRepository
+import com.bpositive.technician.myProfile.model.ProfileRequest
+import com.bpositive.technician.myWorks.model.request.MyWorkRequest
+import com.bpositive.technician.myWorks.model.response.MyWorkResponse
+import com.bpositive.technician.myWorks.service.MyWorkApi
+import com.bpositive.technician.utils.OnError
+import com.bpositive.technician.utils.OnSuccess
+import kotlinx.coroutines.launch
 
-class HomeViewModel : BaseViewModel() {
+class HomeViewModel(private val iHomeRepository: IHomeRepository) : ViewModel() {
 
-    val _clickedItemLiveData = MutableLiveData<DomainListItems>()
-
-    val toastMessage = MutableLiveData<String>()
-
-    val isLoading = MutableLiveData<Int>()
-    val isListAvailable = MutableLiveData<Int>()
-
-    var _responseDetails = MutableLiveData<HomeDomainListResponse>()
-
-    var _domainListItems = MutableLiveData<List<DomainListItems>>()
-
-    private val homeRepository: HomeRepository by lazy {
-        HomeRepository()
+    fun getSettlement(
+        profileRequest: ProfileRequest,
+        onSuccess: OnSuccess<ResSettlement>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            iHomeRepository.getSettlement(profileRequest, onSuccess, onError)
+        }
     }
 
-    override fun start() {
-        isLoading.value = View.VISIBLE
-        homeRepository.callDomainListAPI(object : TaskCallback<HomeDomainListResponse> {
-            override fun onComplete(result: HomeDomainListResponse?) {
-                if (result?.status == 1) {
-                    _responseDetails.value = result
-                    _domainListItems.value = result.domainItems
-                    if (result.domainItems.isNullOrEmpty())
-                        isListAvailable.value = View.VISIBLE
-                    else
-                        isListAvailable.value = View.GONE
-                }
-                toastMessage.value = result?.message
-                isLoading.value = View.GONE
-            }
-
-            override fun onException(t: Throwable?) {
-                toastMessage.value = t?.localizedMessage
-                isLoading.value = View.GONE
-            }
-        })
-    }
-
-    val responseDetails: LiveData<HomeDomainListResponse>
-        get() = _responseDetails
-
-    val domainListItems: LiveData<List<DomainListItems>>
-        get() = _domainListItems
-
-    val clickedItemLiveData: LiveData<DomainListItems>
-        get() = _clickedItemLiveData
-
-    fun selectedDomainItems(selectedDomain: DomainListItems) {
-
-        println("selectedDomainItems: ${selectedDomain.domain_name}")
-
-        _clickedItemLiveData.value = selectedDomain
-
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        homeRepository.completedJOb.cancel()
+    class Factory(val context: Context?) : ViewModelProvider.NewInstanceFactory() {
+        @Suppress("UNCHECKED_CAST")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            val repository = IHomeRepository.getInstance(
+                NetworkManager.serviceClass(MyWorkApi::class.java).create()
+            )
+            return HomeViewModel(repository) as T
+        }
     }
 
 }

@@ -13,10 +13,10 @@
     <dimen name="spacing_large">32dp</dimen>
     <dimen name="spacing_extra_large">64dp</dimen>
 
-    <dimen name="size_10">18sp</dimen>
-    <dimen name="size_12">20sp</dimen>
-    <dimen name="size_16">24sp</dimen>
-    <dimen name="size_18">36sp</dimen>
+    <dimen name="size_10">10sp</dimen>
+    <dimen name="size_12">12sp</dimen>
+    <dimen name="size_16">16sp</dimen>
+    <dimen name="size_18">18sp</dimen>
 
 
     <dimen name="specing">1sp</dimen>
@@ -41,5 +41,6 @@
     <dimen name="text_menu">30sp</dimen>
     <dimen name="edit_text">22sp</dimen>
     <dimen name="buttons">24sp</dimen>
+    <dimen name="size_13">13sp</dimen>
 
 </resources>

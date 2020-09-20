@@ -38,8 +38,7 @@ class LoginDialog : DialogFragment {
 
     override fun onStart() {
         super.onStart()
-        dialog!!.window
-            .setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog!!.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
     }
 
     override fun onCreateView(
@@ -47,7 +46,7 @@ class LoginDialog : DialogFragment {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        dialog!!.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         val v: View = inflater.inflate(R.layout.dialog_no_login, container, false)
         dialogTitle = v.findViewById<View>(R.id.titleTv) as CustomTextView
         proceed = v.findViewById<Button>(R.id.proceedBt)

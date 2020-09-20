@@ -68,7 +68,7 @@ class MyWorkAdapter(val type: Int, val works: works) :
                         lay_expand_map_listview_details.visibility = View.GONE
                     }
                 }
-                lay_expand_map_listview_details.setOnClickListener {
+                itemView.setOnClickListener {
                     works.invoke(data)
                 }
 

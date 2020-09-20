@@ -1,5 +1,7 @@
 package com.bpositive.technician.myWorks.service
 
+import com.bpositive.technician.home.model.ResSettlement
+import com.bpositive.technician.myProfile.model.ProfileRequest
 import com.bpositive.technician.myWorks.model.request.MoveToPendingReq
 import com.bpositive.technician.myWorks.model.request.MyWorkRequest
 import com.bpositive.technician.myWorks.model.request.StartWorkRequest
@@ -9,6 +11,7 @@ import com.bpositive.technician.utils.ApiConstants.ALL_BOOKING_LIST
 import com.bpositive.technician.utils.ApiConstants.INDEX
 import com.bpositive.technician.utils.ApiConstants.MOVE_COMPLETED
 import com.bpositive.technician.utils.ApiConstants.MOVE_TO_PENDING
+import com.bpositive.technician.utils.ApiConstants.SETTLEMENT
 import com.bpositive.technician.utils.ApiConstants.START_WORK
 import okhttp3.MultipartBody
 import retrofit2.Response
@@ -43,5 +46,11 @@ interface MyWorkApi {
     @Multipart
     @POST("/imagefolder/index")
     suspend fun uploadVideoToServer(@Part video: MultipartBody.Part)
+
+    @POST(INDEX)
+    suspend fun getSettlement(
+        @Query("type") type: String = SETTLEMENT,
+        @Body profileRequest: ProfileRequest
+    ): Response<ResSettlement>
 
 }

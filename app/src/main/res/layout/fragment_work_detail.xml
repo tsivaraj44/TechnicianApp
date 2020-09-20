@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/spacing_small"
+    android:fillViewport="true"
+    tools:context=".technician.myWorks.view.WorkDetailFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/pbStartOrComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivCategoryImage"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_margin="@dimen/spacing_small"
+            android:src="@drawable/ic_my_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gildeLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCategoryLabel"
+            style="@style/WorkDetailTextView"
+            android:text="Category: "
+            android:textSize="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCategoryImage" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCategory"
+            style="@style/WorkDetailTextView"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/gildeLine"
+            app:layout_constraintTop_toTopOf="@id/tvCategoryLabel"
+            tools:text="Washing Machine" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerNameLabel"
+            style="@style/WorkDetailTextView"
+            android:text="Customer Name: "
+            android:textSize="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCategoryLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerName"
+            style="@style/WorkDetailTextView"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/gildeLine"
+            app:layout_constraintTop_toTopOf="@id/tvCustomerNameLabel"
+            tools:text="SivaRaj" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerNoLabel"
+            style="@style/WorkDetailTextView"
+            android:text="Customer No: "
+            android:textSize="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCustomerNameLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvCustomerNo"
+            style="@style/WorkDetailTextView"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/gildeLine"
+            app:layout_constraintTop_toTopOf="@id/tvCustomerNoLabel"
+            tools:text="9876543210" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBrandLabel"
+            style="@style/WorkDetailTextView"
+            android:text="Brand: "
+            android:textSize="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvCustomerNoLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvBrand"
+            style="@style/WorkDetailTextView"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/gildeLine"
+            app:layout_constraintTop_toTopOf="@id/tvBrandLabel"
+            tools:text="Whirlpool" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvModelLabel"
+            style="@style/WorkDetailTextView"
+            android:text="Model: "
+            android:textSize="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBrandLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvModel"
+            style="@style/WorkDetailTextView"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/gildeLine"
+            app:layout_constraintTop_toTopOf="@id/tvModelLabel"
+            tools:text="STM100" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvVisitTimeLabel"
+            style="@style/WorkDetailTextView"
+            android:text="Visit Time: "
+            android:textSize="@dimen/size_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvModelLabel" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvVisitTime"
+            style="@style/WorkDetailTextView"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/gildeLine"
+            app:layout_constraintTop_toTopOf="@id/tvVisitTimeLabel"
+            tools:text="10:30 AM" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/etAmount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_enter_amount"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_13"
+            app:layout_constraintTop_toBottomOf="@id/tvVisitTimeLabel" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/label_enter_description"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_13"
+            app:layout_constraintTop_toBottomOf="@id/etAmount" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivTakePic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_tiny"
+            android:src="@drawable/ic_menu_camera"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etDescription" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivTakeVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/spacing_tiny"
+            android:src="@drawable/ic_videocam"
+            app:layout_constraintStart_toEndOf="@id/ivTakePic"
+            app:layout_constraintTop_toTopOf="@id/ivTakePic" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPic"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/spacing_tiny"
+            android:layout_marginBottom="@dimen/spacing_tiny"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/ivTakePic"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_picture_layout" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="ivTakePic, ivTakeVideo, rvPic,etAmount, etDescription" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartOrComplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/action_start"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rvPic" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

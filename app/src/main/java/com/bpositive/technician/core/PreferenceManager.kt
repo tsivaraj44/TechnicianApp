@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.bpositive.technician.utils.sessionNames.TECHNICIAN_ID
 import com.bpositive.technician.utils.sessionNames.TECHNICIAN_NAME
+import com.bpositive.technician.utils.sessionNames.TOKEN
 import com.bpositive.technician.utils.sessionNames.USER_LANGUAGE
 
 class PreferenceManager(context: Context) {
@@ -39,5 +40,8 @@ class PreferenceManager(context: Context) {
         preferences.edit().putString(TECHNICIAN_NAME, technicianName).apply()
 
     fun getTechnicianName() = preferences.getString(TECHNICIAN_NAME, "")
+    fun getToken() = preferences.getString(TOKEN, "")
+
+    fun saveToken(token: String) = preferences.getString(TOKEN, token)
 
 }
