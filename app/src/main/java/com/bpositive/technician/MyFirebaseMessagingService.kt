@@ -40,8 +40,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
-        Log.d(TAG, "Refreshed token: ${FirebaseInstanceId.getInstance().token.toString()}")
+        println("GET___________TOKEN________: $token")
+        println("GET___________TOKEN________: ${FirebaseInstanceId.getInstance().token.toString()}")
         PreferenceManager(baseContext).saveToken(token)
         sendRegistrationToServer(token)
     }

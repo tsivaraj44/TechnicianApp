@@ -51,7 +51,10 @@
     <string name="mobile_or_email">Mobile No/Email</string>
     <string name="password">Password</string>
     <string name="enter_mobilno_or_email">Enter the Mobile No/Email</string>
+    <string name="enter_mobilno">Enter Mobile No</string>
     <string name="enter_valid_mobilno_or_email">Enter valid Mobile No/Email</string>
+    <string name="enter_valid_mobilno">Enter a valid Mobile No</string>
+    <string name="enter_valid_otp">Enter a valid OTP</string>
     <string name="enter_password">Enter the Password</string>
 
 
@@ -126,9 +129,13 @@
     <string name="label_enter_description">Enter description</string>
     <string name="label_enter_amount">Enter Amount</string>
     <string name="label_total_amount">Total Amount :</string>
+    <string name="label_settlement">Settlement :</string>
     <string name="label_given_amount">Given Amount :</string>
     <string name="label_no_settlement">No settlement</string>
 
     <string name="default_notification_channel_id">123456</string>
+    <string name="action_send_otp">Send OTP</string>
+    <string name="action_verify_otp">Verify OTP</string>
+    <string name="label_wrong_number">Wrong Number</string>
 
 </resources>

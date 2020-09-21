@@ -2,8 +2,10 @@ package com.bpositive.technician.core
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.bpositive.technician.utils.sessionNames.TECHNICIAN_EMAIL
 import com.bpositive.technician.utils.sessionNames.TECHNICIAN_ID
 import com.bpositive.technician.utils.sessionNames.TECHNICIAN_NAME
+import com.bpositive.technician.utils.sessionNames.TECHNICIAN_NO
 import com.bpositive.technician.utils.sessionNames.TOKEN
 import com.bpositive.technician.utils.sessionNames.USER_LANGUAGE
 
@@ -40,8 +42,18 @@ class PreferenceManager(context: Context) {
         preferences.edit().putString(TECHNICIAN_NAME, technicianName).apply()
 
     fun getTechnicianName() = preferences.getString(TECHNICIAN_NAME, "")
-    fun getToken() = preferences.getString(TOKEN, "")
 
+    fun saveTechnicianNo(technicianNo: String) =
+        preferences.edit().putString(TECHNICIAN_NO, technicianNo).apply()
+
+    fun getTechnicianNo() = preferences.getString(TECHNICIAN_NO, "")
+
+    fun saveTechnicianEmail(technicianEmail: String) =
+        preferences.edit().putString(TECHNICIAN_EMAIL, technicianEmail).apply()
+
+    fun getTechnicianEmail() = preferences.getString(TECHNICIAN_EMAIL, "")
+
+    fun getToken() = preferences.getString(TOKEN, "")
     fun saveToken(token: String) = preferences.getString(TOKEN, token)
 
 }

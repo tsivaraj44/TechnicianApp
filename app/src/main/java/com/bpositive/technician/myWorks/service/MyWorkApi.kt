@@ -14,6 +14,7 @@ import com.bpositive.technician.utils.ApiConstants.MOVE_TO_PENDING
 import com.bpositive.technician.utils.ApiConstants.SETTLEMENT
 import com.bpositive.technician.utils.ApiConstants.START_WORK
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -37,10 +38,17 @@ interface MyWorkApi {
         @Body moveToPendingReq: MoveToPendingReq
     ): Response<StartWorkResponse>
 
-    @POST(INDEX)
+    @Multipart
+    @POST(INDEX/*+"/" + MOVE_COMPLETED*/)
     suspend fun completeWork(
         @Query("type") type: String = MOVE_COMPLETED,
-        @Body moveToPendingReq: MoveToPendingReq
+        @Part("technician_id") technicianId: RequestBody,
+        @Part("job_id") jobId: RequestBody,
+        @Part("amount") amount: RequestBody,
+        @Part("comments") comments: RequestBody,
+        @Part fileJobAttachment1: MultipartBody.Part,
+        @Part fileJobAttachment2: MultipartBody.Part,
+        @Part fileJobAttachment3: MultipartBody.Part
     ): Response<StartWorkResponse>
 
     @Multipart

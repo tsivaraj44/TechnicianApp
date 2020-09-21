@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.dialog_enter_otp.*
 
 typealias verifyOtp = (String) -> Unit
 
-class EnterOtpDialog(val verifyOtp: verifyOtp) : DialogFragment() {
+class EnterOtpDialog(val otp: String, val verifyOtp: verifyOtp) : DialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +26,8 @@ class EnterOtpDialog(val verifyOtp: verifyOtp) : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+
+        tvOtp.text = "Enter this otp below: $otp"
 
         btnVerifyOtp.setOnClickListener {
             if (TextUtils.isEmpty(etOTP.text.toString())) {
@@ -48,8 +50,8 @@ class EnterOtpDialog(val verifyOtp: verifyOtp) : DialogFragment() {
 
     companion object {
         private val TAG = EnterOtpDialog.javaClass.simpleName
-        fun showEnterOtpDialog(fragmentManager: FragmentManager, verifyOtp: verifyOtp) =
-            EnterOtpDialog(verifyOtp).show(fragmentManager, TAG)
+        fun showEnterOtpDialog(fragmentManager: FragmentManager, otp: String, verifyOtp: verifyOtp) =
+            EnterOtpDialog(otp, verifyOtp).show(fragmentManager, TAG)
     }
 
 }

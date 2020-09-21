@@ -88,7 +88,8 @@ class WorkDetailFragment : BaseFragment() {
         tvVisitTime.text = work.visitTime
 
         ivTakePic.setOnClickListener {
-            picOrVideo(true)
+            if (picList.size < 3)
+                picOrVideo(true)
         }
 
         rvPic.adapter = MyPictureAdapter {
@@ -102,7 +103,10 @@ class WorkDetailFragment : BaseFragment() {
         btnStartOrComplete.setOnClickListener {
             when (workStatus) {
                 WorkStatus.UPCOMING -> {
-                    EnterOtpDialog.showEnterOtpDialog(childFragmentManager) { otp ->
+                    EnterOtpDialog.showEnterOtpDialog(
+                        childFragmentManager,
+                        work.otp.toString()
+                    ) { otp ->
                         startWork(work, otp)
                     }
                 }
@@ -193,7 +197,7 @@ class WorkDetailFragment : BaseFragment() {
                 technicianId = PreferenceManager(context!!).getTechnicianId(),
                 amount = etAmount.text.toString().toDouble(),
                 comments = etDescription.text.toString()
-            ), onSuccess = {
+            ), files = picList, onSuccess = {
                 pbStartOrComplete.visibility = View.GONE
                 activity?.toast(it.message.toString())
                 activity?.onBackPressed()

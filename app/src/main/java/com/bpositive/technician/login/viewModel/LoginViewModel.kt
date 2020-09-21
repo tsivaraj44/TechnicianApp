@@ -5,8 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.bpositive.technician.core.NetworkManager
-import com.bpositive.technician.login.model.LoginRequest
-import com.bpositive.technician.login.model.LoginResponse
+import com.bpositive.technician.login.model.*
 import com.bpositive.technician.login.service.ILoginRepository
 import com.bpositive.technician.login.service.LoginApi
 import com.bpositive.technician.utils.OnError
@@ -22,6 +21,26 @@ class LoginViewModel(val repository: ILoginRepository) : ViewModel() {
     ) {
         viewModelScope.launch {
             repository.doLogin(loginRequest, onSuccess, onError)
+        }
+    }
+
+    fun generateOtp(
+        reqGenerateOtp: ReqGenerateOtp,
+        onSuccess: OnSuccess<GenerateOtpRes>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            repository.generateOtp(reqGenerateOtp, onSuccess, onError)
+        }
+    }
+
+    fun verifyOtp(
+        reqVerifyOtp: ReqVerifyOtp,
+        onSuccess: OnSuccess<VerifyOtpRes>,
+        onError: OnError<String>
+    ) {
+        viewModelScope.launch {
+            repository.verifyOtp(reqVerifyOtp, onSuccess, onError)
         }
     }
 

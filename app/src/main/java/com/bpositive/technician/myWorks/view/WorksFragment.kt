@@ -155,12 +155,13 @@ class WorksFragment(val type: Int, val viewModel: MyWorksViewModel) : Fragment()
         CompletedDialogFragment.getInstance("Complete", true) { cost, comment ->
             pbWorks.visibility = View.VISIBLE
             /*{"technician_id":1,"job_id":7,"amount":100.00,"comments":"rep changed"}*/
+            val files = mutableListOf("", "", "")
             viewModel.completeWork(
                 moveToPendingReq = MoveToPendingReq(
                     jobId = work.jobId.toString().toInt(),
                     technicianId = work.technicianId.toString().toInt(),
                     amount = cost.toDouble(), comments = comment
-                ), onSuccess = {
+                ), files = files, onSuccess = {
                     pbWorks.visibility = View.GONE
                     activity?.toast(it.message.toString())
                 }, onError = {

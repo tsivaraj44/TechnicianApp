@@ -70,20 +70,15 @@ class HomeFragment : BaseFragment(), NotificationListener {
                     (rvSettlement?.adapter as SettlementAdapter).addSettlementList(settlement.settlementList as List<Settlement>)
                     tvNoSettlement.visibility = View.GONE
                 }
-                tvTotalAmount.text =
-                    getString(R.string.label_total_amount) + " " + settlement.totalAmount.toString()
-                tvGivenAmount.text =
-                    getString(R.string.label_given_amount) + " " + settlement.givenAmount.toString()
+                tvTotalAmount.text = getString(R.string.label_settlement) + " " + settlement.givenAmount.toString()
                 pbSettlement?.visibility = View.GONE
             },
             onError = {
                 activity?.toast(it)
-                tvTotalAmount.text = getString(R.string.label_total_amount) + " 0.00"
-                tvGivenAmount.text = getString(R.string.label_given_amount) + " 0.00"
+                tvTotalAmount.text = getString(R.string.label_settlement) + " 0.00"
                 pbSettlement?.visibility = View.GONE
             })
     }
-
 
     override fun onDestroyView() {
         context?.unregisterReceiver(notificationBroadCast)

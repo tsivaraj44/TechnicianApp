@@ -44,10 +44,11 @@
                 app:layout_constraintTop_toBottomOf="@id/taawonImageView">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/userNameField"
+                    android:id="@+id/etPhoneNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress" />
+                    android:imeOptions="actionDone"
+                    android:inputType="text" />
 
                 <requestFocus />
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,42 +59,43 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="@string/password"
+                android:hint="@string/label_enter_otp"
                 app:layout_constraintEnd_toEndOf="@+id/user_name_input_layout"
                 app:layout_constraintStart_toStartOf="@+id/user_name_input_layout"
                 app:layout_constraintTop_toBottomOf="@+id/user_name_input_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/passwordField"
+                    android:id="@+id/etOtp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:enabled="false"
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.bpositive.technician.core.widget.MvvmTextView
-                android:id="@+id/l_forgot_password_txt"
+                android:id="@+id/tvWrongNo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:padding="@dimen/spacing_small"
-                android:text="@string/forgot_password"
+                android:text="@string/label_wrong_number"
                 app:layout_constraintEnd_toEndOf="@id/user_name_input_layout"
                 app:layout_constraintStart_toStartOf="@+id/user_name_input_layout"
                 app:layout_constraintTop_toBottomOf="@+id/password_input_layout" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/signinBtn"
+                android:id="@+id/btnSignIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/sign_in"
+                android:tag="0"
+                android:text="@string/action_send_otp"
                 android:textAllCaps="false"
                 app:cornerRadius="@dimen/btn_corner_radius"
-                app:layout_constraintEnd_toEndOf="@id/l_forgot_password_txt"
-                app:layout_constraintStart_toStartOf="@+id/l_forgot_password_txt"
-
-                app:layout_constraintTop_toBottomOf="@+id/l_forgot_password_txt" />
+                app:layout_constraintEnd_toEndOf="@id/tvWrongNo"
+                app:layout_constraintStart_toStartOf="@+id/tvWrongNo"
+                app:layout_constraintTop_toBottomOf="@+id/tvWrongNo" />
 
             <com.bpositive.technician.core.widget.MvvmTextView
                 android:id="@+id/l_dont_have_account_txt"
@@ -104,7 +106,7 @@
                 android:text="@string/dont_have_account"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/signinBtn" />
+                app:layout_constraintTop_toBottomOf="@+id/btnSignIn" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/signupBtn"
@@ -115,8 +117,8 @@
                 android:textAllCaps="false"
                 app:backgroundTint="@color/colorAccent"
                 app:cornerRadius="@dimen/btn_corner_radius"
-                app:layout_constraintEnd_toEndOf="@id/signinBtn"
-                app:layout_constraintStart_toStartOf="@+id/signinBtn"
+                app:layout_constraintEnd_toEndOf="@id/btnSignIn"
+                app:layout_constraintStart_toStartOf="@+id/btnSignIn"
                 app:layout_constraintTop_toBottomOf="@+id/l_dont_have_account_txt" />
 
             <ProgressBar

@@ -16,6 +16,8 @@ object ApiConstants {
     const val UPDATE_PROFILE = "update_profile_details"
     const val CHANGE_PASSWORD = "change_password"
     const val SETTLEMENT = "settlement_history"
+    const val GENERATE_OTP = "generate_otp"
+    const val VERIFY_OTP = "verify_login_otp"
 }
 
 object TravelStatus {
@@ -57,6 +59,8 @@ object sessionNames {
     const val USER_LANGUAGE = "language"
     const val TECHNICIAN_ID = "technician_id"
     const val TECHNICIAN_NAME = "technician_name"
+    const val TECHNICIAN_NO = "technician_no"
+    const val TECHNICIAN_EMAIL = "technician_email"
     const val AUTH_TOKEN = "auth_token"
     const val MOBILE_NO = "mobile_number"
     const val TOKEN = "token"

@@ -5,6 +5,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilOldPwd"
         android:layout_width="match_parent"

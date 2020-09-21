@@ -171,6 +171,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/spacing_tiny"
+            android:visibility="gone"
             android:src="@drawable/ic_videocam"
             app:layout_constraintStart_toEndOf="@id/ivTakePic"
             app:layout_constraintTop_toTopOf="@id/ivTakePic" />
@@ -192,7 +193,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:constraint_referenced_ids="ivTakePic, ivTakeVideo, rvPic,etAmount, etDescription" />
+            app:constraint_referenced_ids="ivTakePic, rvPic,etAmount, etDescription" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnStartOrComplete"

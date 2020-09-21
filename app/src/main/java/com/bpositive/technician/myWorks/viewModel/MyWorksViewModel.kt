@@ -50,11 +50,12 @@ class MyWorksViewModel(private val iMyWorkRepository: IMyWorkRepository) : ViewM
 
     fun completeWork(
         moveToPendingReq: MoveToPendingReq,
+        files: MutableList<String>,
         onSuccess: OnSuccess<StartWorkResponse>,
         onError: OnError<String>
     ) {
         viewModelScope.launch {
-            iMyWorkRepository.completeWork(moveToPendingReq, onSuccess, onError)
+            iMyWorkRepository.completeWork(moveToPendingReq, files, onSuccess, onError)
         }
     }
 

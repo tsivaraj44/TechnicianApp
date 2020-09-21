@@ -27,6 +27,7 @@ data class Works(
     @SerializedName("job_id") val jobId: String? = null,
     @SerializedName("customer_name") val customerName: String? = null,
     @SerializedName("customer_id") val customerId: String? = null,
-    @SerializedName("visit_date") val visitDate: String? = null
+    @SerializedName("visit_date") val visitDate: String? = null,
+    @SerializedName("otp") val otp: String? = null
 ) : Parcelable
 

@@ -13,6 +13,8 @@ import com.bpositive.R
 import com.bpositive.technician.BaseFragment
 import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.login.model.LoginRequest
+import com.bpositive.technician.login.model.ReqGenerateOtp
+import com.bpositive.technician.login.model.ReqVerifyOtp
 import com.bpositive.technician.login.viewModel.LoginViewModel
 import com.bpositive.technician.utils.ShowToast
 import com.bpositive.technician.utils.showKeyboard
@@ -39,21 +41,34 @@ class LoginFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userNameField.showKeyboard()
+        etPhoneNo.showKeyboard()
 
-        signinBtn.setOnClickListener {
-            val user = userNameField.text.toString()
-            val password = passwordField.text.toString()
-
-            if (TextUtils.isEmpty(user)) {
-                activity?.ShowToast(resources.getString(R.string.enter_mobilno_or_email))
-            } else if (!validateUser(user)) {
-                activity?.ShowToast(resources.getString(R.string.enter_valid_mobilno_or_email))
-            } else if (TextUtils.isEmpty(password)) {
-                activity?.ShowToast(resources.getString(R.string.enter_password))
+        btnSignIn.setOnClickListener {
+            if (btnSignIn.tag.toString() == "0") {
+                val user = etPhoneNo.text.toString()
+                if (TextUtils.isEmpty(user)) {
+                    activity?.ShowToast(resources.getString(R.string.enter_mobilno))
+                } else if (!validateUser(user)) {
+                    activity?.ShowToast(resources.getString(R.string.enter_valid_mobilno))
+                } else {
+                    generateOtp()
+                }
             } else {
-                moveToHomeScreen()
+                val otp = etOtp.text.toString()
+                when {
+                    TextUtils.isEmpty(otp) -> activity?.ShowToast(resources.getString(R.string.label_enter_otp))
+                    otp.length != 4 -> activity?.ShowToast(resources.getString(R.string.enter_valid_otp))
+                    else -> verifyOtp()
+                }
             }
+        }
+
+        tvWrongNo.setOnClickListener {
+            etOtp.isEnabled = false
+            etPhoneNo.isEnabled = true
+            btnSignIn.tag = "0"
+            etOtp.setText("")
+            btnSignIn.text = getString(R.string.action_send_otp)
         }
 
     }
@@ -69,13 +84,63 @@ class LoginFragment : BaseFragment() {
         return false
     }
 
+    private fun generateOtp() {
+        pbLogin.visibility = View.VISIBLE
+        viewModel.generateOtp(
+            reqGenerateOtp = ReqGenerateOtp(
+                mobileNumber = etPhoneNo.text.toString(),
+                countryCode = "+91",
+                deviceType = Build.MANUFACTURER,
+                deviceToken = "jnf66jdh77",
+                deviceId = ""
+            ), onSuccess = {
+                pbLogin.visibility = View.GONE
+                activity?.toast(it.message.toString())
+                etOtp.isEnabled = true
+                etPhoneNo.isEnabled = false
+                btnSignIn.tag = "1"
+                etOtp.setText(it.otp.toString())
+                btnSignIn.text = getString(R.string.action_verify_otp)
+            }, onError = {
+                pbLogin.visibility = View.GONE
+                activity?.toast(it)
+            })
+    }
+
+    private fun verifyOtp() {
+        pbLogin.visibility = View.VISIBLE
+        viewModel.verifyOtp(
+            reqVerifyOtp = ReqVerifyOtp(
+                mobileNumber = etPhoneNo.text.toString(),
+                countryCode = "+91",
+                otp = etOtp.text.toString()
+            ), onSuccess = {
+                pbLogin.visibility = View.GONE
+                activity?.toast(it.message.toString())
+                it.details?.let { loginDetails ->
+                    PreferenceManager(context!!).apply {
+                        saveTechnicianId(loginDetails.id.toString().toInt())
+                        saveTechnicianName(loginDetails.name.toString())
+                        saveTechnicianNo(loginDetails.mobileNumber.toString())
+                        saveTechnicianEmail(loginDetails.email.toString())
+                    }
+                    when (findNavController().currentDestination?.id) {
+                        R.id.loginFragment -> findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    }
+                }
+            }, onError = {
+                pbLogin.visibility = View.GONE
+                activity?.toast(it)
+            })
+    }
+
     private fun moveToHomeScreen() {
         pbLogin.visibility = View.VISIBLE
         viewModel.doLogin(
             loginRequest = LoginRequest(
-                mobileNumber = userNameField.text.toString(),
+                mobileNumber = etPhoneNo.text.toString(),
                 countryCode = "+91",
-                password = passwordField.text.toString(),
+                password = "passwordField.text.toString()",
                 deviceType = Build.MANUFACTURER,
                 deviceToken = "jnf66jdh77"
             ), onSuccess = {
