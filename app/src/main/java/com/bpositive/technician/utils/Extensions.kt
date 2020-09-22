@@ -143,7 +143,7 @@ fun Fragment.takePhotoFromCamera() {
 
 fun Context.savePic(bitmap: Bitmap): String {
     val byteArrayOutputStream = ByteArrayOutputStream()
-    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 70, byteArrayOutputStream)
     //  val directory = File(Environment.getExternalStorageState().toString() + IMAGE_DIRECTORY)  // getExternalStorageDirectory()
     val directory = File(this.filesDir, IMAGE_DIRECTORY)
     if (!directory.exists()) directory.mkdirs()

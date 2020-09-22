@@ -25,6 +25,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         Log.d(TAG, "From: ${remoteMessage.from}")
         Log.d(TAG, "From data : ${remoteMessage.data}")
 
+        /*{"multicast_id":7081988626618154947,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"MismatchSenderId"}]}*/
+        /*{"title":"Kiranaa-Order notification","body":"Hi User,Your order is inprogress.","sound":"default","badge":"1"}*/
+
         remoteMessage.data.let { msg ->
             msg.isNotEmpty().let {
                 if (it) {
@@ -117,6 +120,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun segregateMessage(remoteMessage: RemoteMessage): String {
+        /*{"title":"Kiranaa-Order notification","body":"Hi User,Your order is inprogress.","sound":"default","badge":"1"}*/
         remoteMessage.data.let { msg ->
             val message = msg["message"]
             //  val jsonObject = JsonParser().parse(message).asJsonObject

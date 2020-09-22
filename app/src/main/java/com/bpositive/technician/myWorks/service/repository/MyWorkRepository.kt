@@ -99,67 +99,59 @@ class MyWorkRepository(
         onError: OnError<String>
     ) {
         withContext(Dispatchers.IO) {
-//            try {
-            val technicianId = RequestBody.create(
-                MediaType.parse("multipart/form-data"),
-                Gson().toJson(moveToPendingReq.technicianId)
-            )
-            val jobId = RequestBody.create(
-                MediaType.parse("multipart/form-data"),
-                Gson().toJson(moveToPendingReq.jobId)
-            )
-            val amount = RequestBody.create(
-                MediaType.parse("multipart/form-data"),
-                Gson().toJson(moveToPendingReq.amount)
-            )
-            val comments = RequestBody.create(
-                MediaType.parse("multipart/form-data"),
-                Gson().toJson(moveToPendingReq.comments)
-            )
+            try {
+                val technicianId = RequestBody.create(MediaType.parse("multipart/form-data"), Gson().toJson(moveToPendingReq.technicianId))
+                val jobId = RequestBody.create(MediaType.parse("multipart/form-data"), Gson().toJson(moveToPendingReq.jobId))
+                val amount = RequestBody.create(MediaType.parse("multipart/form-data"), Gson().toJson(moveToPendingReq.amount))
+                val comments = RequestBody.create(MediaType.parse("multipart/form-data"), Gson().toJson(moveToPendingReq.comments))
 
-            if (files.size < 3) {
-                for (i in 0..3) {
-                    files.add("")
+                if (files.size < 3) {
+                    for (i in 0..3) {
+                        files.add("")
+                    }
                 }
-            }
 
-            val file1 = File(files[0])
-            val file2 = File(files[1])
-            val file3 = File(files[2])
-
-            val jobAttachment1 = RequestBody.create(MediaType.parse("image/*"), file1)
-            val jobAttachment2 = RequestBody.create(MediaType.parse("image/*"), file2)
-            val jobAttachment3 = RequestBody.create(MediaType.parse("image/*"), file3)
-
-            val fileJobAttachment1 =
-                MultipartBody.Part.createFormData("job_attachments_1", file1.name, jobAttachment1)
-            val fileJobAttachment2 =
-                MultipartBody.Part.createFormData("job_attachments_2", file2.name, jobAttachment2)
-            val fileJobAttachment3 =
-                MultipartBody.Part.createFormData("job_attachments_3", file3.name, jobAttachment3)
-
-            val response = api.completeWork(
-                technicianId = technicianId,
-                jobId = jobId,
-                amount = amount,
-                comments = comments,
-                fileJobAttachment1 = fileJobAttachment1,
-                fileJobAttachment2 = fileJobAttachment2,
-                fileJobAttachment3 = fileJobAttachment3
-            )
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    if (it.status!!)
-                        withContext(Dispatchers.Main) { onSuccess(it) }
-                    else
-                        withContext(Dispatchers.Main) { onError(it.message.toString()) }
+                var fileJobAttachment1: MultipartBody.Part? = null
+                if (files[0] != "") {
+                    val file = File(files[0])
+                    val jobAttachment1 = RequestBody.create(MediaType.parse("image/*"), file)
+                    fileJobAttachment1 = MultipartBody.Part.createFormData("job_attachments_1", file.name, jobAttachment1)
                 }
-            } else
-                withContext(Dispatchers.Main) { onError(response.message().toString()) }
-            /*} catch (e: Exception) {
+                var fileJobAttachment2: MultipartBody.Part? = null
+                if (files[1] != "") {
+                    val file = File(files[1])
+                    val jobAttachment1 = RequestBody.create(MediaType.parse("image/*"), file)
+                    fileJobAttachment2 = MultipartBody.Part.createFormData("job_attachments_1", file.name, jobAttachment1)
+                }
+                var fileJobAttachment3: MultipartBody.Part? = null
+                if (files[2] != "") {
+                    val file = File(files[2])
+                    val jobAttachment1 = RequestBody.create(MediaType.parse("image/*"), file)
+                    fileJobAttachment3 = MultipartBody.Part.createFormData("job_attachments_1", file.name, jobAttachment1)
+                }
+
+                val response = api.completeWork(
+                    technicianId = technicianId,
+                    jobId = jobId,
+                    amount = amount,
+                    comments = comments,
+                    fileJobAttachment1 = fileJobAttachment1,
+                    fileJobAttachment2 = fileJobAttachment2,
+                    fileJobAttachment3 = fileJobAttachment3
+                )
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        if (it.status!!)
+                            withContext(Dispatchers.Main) { onSuccess(it) }
+                        else
+                            withContext(Dispatchers.Main) { onError(it.message.toString()) }
+                    }
+                } else
+                    withContext(Dispatchers.Main) { onError(response.message().toString()) }
+            } catch (e: Exception) {
                 e.printStackTrace()
                 withContext(Dispatchers.Main) { onError(e.toString()) }
-            }*/
+            }
         }
     }
 

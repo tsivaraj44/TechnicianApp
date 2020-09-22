@@ -39,16 +39,16 @@ interface MyWorkApi {
     ): Response<StartWorkResponse>
 
     @Multipart
-    @POST(INDEX/*+"/" + MOVE_COMPLETED*/)
+    @POST(INDEX)
     suspend fun completeWork(
         @Query("type") type: String = MOVE_COMPLETED,
         @Part("technician_id") technicianId: RequestBody,
         @Part("job_id") jobId: RequestBody,
         @Part("amount") amount: RequestBody,
         @Part("comments") comments: RequestBody,
-        @Part fileJobAttachment1: MultipartBody.Part,
-        @Part fileJobAttachment2: MultipartBody.Part,
-        @Part fileJobAttachment3: MultipartBody.Part
+        @Part fileJobAttachment1: MultipartBody.Part? = null,
+        @Part fileJobAttachment2: MultipartBody.Part? = null,
+        @Part fileJobAttachment3: MultipartBody.Part? = null
     ): Response<StartWorkResponse>
 
     @Multipart
