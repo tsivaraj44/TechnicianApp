@@ -91,7 +91,7 @@ class LoginFragment : BaseFragment() {
                 mobileNumber = etPhoneNo.text.toString(),
                 countryCode = "+91",
                 deviceType = Build.MANUFACTURER,
-                deviceToken = "jnf66jdh77",
+                deviceToken = PreferenceManager(requireContext()).getToken(),
                 deviceId = ""
             ), onSuccess = {
                 pbLogin.visibility = View.GONE

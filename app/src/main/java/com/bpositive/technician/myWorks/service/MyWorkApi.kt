@@ -41,14 +41,14 @@ interface MyWorkApi {
     @Multipart
     @POST(INDEX)
     suspend fun completeWork(
-        @Query("type") type: String = MOVE_COMPLETED,
         @Part("technician_id") technicianId: RequestBody,
         @Part("job_id") jobId: RequestBody,
         @Part("amount") amount: RequestBody,
         @Part("comments") comments: RequestBody,
         @Part fileJobAttachment1: MultipartBody.Part? = null,
         @Part fileJobAttachment2: MultipartBody.Part? = null,
-        @Part fileJobAttachment3: MultipartBody.Part? = null
+        @Part fileJobAttachment3: MultipartBody.Part? = null,
+        @Query("type") type: String = MOVE_COMPLETED
     ): Response<StartWorkResponse>
 
     @Multipart

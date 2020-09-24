@@ -53,7 +53,7 @@ class PreferenceManager(context: Context) {
 
     fun getTechnicianEmail() = preferences.getString(TECHNICIAN_EMAIL, "")
 
+    fun saveToken(token: String) = preferences.edit().putString(TOKEN, token).apply()
     fun getToken() = preferences.getString(TOKEN, "")
-    fun saveToken(token: String) = preferences.getString(TOKEN, token)
 
 }

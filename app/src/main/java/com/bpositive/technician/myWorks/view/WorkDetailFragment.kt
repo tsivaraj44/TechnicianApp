@@ -90,6 +90,8 @@ class WorkDetailFragment : BaseFragment() {
         ivTakePic.setOnClickListener {
             if (picList.size < 3)
                 picOrVideo(true)
+            else
+                activity?.toast("Maximum no image selected")
         }
 
         rvPic.adapter = MyPictureAdapter {

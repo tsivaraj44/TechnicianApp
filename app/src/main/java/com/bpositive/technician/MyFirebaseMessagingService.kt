@@ -31,13 +31,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteMessage.data.let { msg ->
             msg.isNotEmpty().let {
                 if (it) {
-                    sendNotification(segregateMessage(remoteMessage), remoteMessage)
+                  //  sendNotification(segregateMessage(remoteMessage), remoteMessage)
                 }
             }
         }
 
         remoteMessage.notification?.let {
             Log.d(TAG, "Message Notification Body: ${it.body}")
+            sendNotification(it.body.toString())
         }
 
     }
@@ -78,17 +79,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
      */
     private fun sendNotification(
         messageBody: String,
-        remoteMessage: RemoteMessage
+        remoteMessage: RemoteMessage? = null
     ) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        remoteMessage.data.let { msg ->
-            val message = msg["message"]
-            val jsonObject = JSONObject(message)
-            intent.putExtra(BundleConstants.MESSAGE, jsonObject["message"].toString())
-            this.sendBroadcast(Intent(LOCAL_BROADCAST))
-        }
-
+        intent.putExtra(BundleConstants.MESSAGE, messageBody)
+        this.sendBroadcast(Intent(LOCAL_BROADCAST))
         val pendingIntent =
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         val channelId = getString(R.string.default_notification_channel_id)

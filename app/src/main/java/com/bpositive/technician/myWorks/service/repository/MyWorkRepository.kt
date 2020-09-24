@@ -94,7 +94,7 @@ class MyWorkRepository(
 
     override suspend fun completeWork(
         moveToPendingReq: MoveToPendingReq,
-        files: MutableList<String>,
+        fileList: MutableList<String>,
         onSuccess: OnSuccess<StartWorkResponse>,
         onError: OnError<String>
     ) {
@@ -105,8 +105,11 @@ class MyWorkRepository(
                 val amount = RequestBody.create(MediaType.parse("multipart/form-data"), Gson().toJson(moveToPendingReq.amount))
                 val comments = RequestBody.create(MediaType.parse("multipart/form-data"), Gson().toJson(moveToPendingReq.comments))
 
+                val file = fileList.filter { it != "" }
+                val files = mutableListOf<String>()
+                files.addAll(file)
                 if (files.size < 3) {
-                    for (i in 0..3) {
+                    for (i in files.size..3) {
                         files.add("")
                     }
                 }
@@ -121,13 +124,13 @@ class MyWorkRepository(
                 if (files[1] != "") {
                     val file = File(files[1])
                     val jobAttachment1 = RequestBody.create(MediaType.parse("image/*"), file)
-                    fileJobAttachment2 = MultipartBody.Part.createFormData("job_attachments_1", file.name, jobAttachment1)
+                    fileJobAttachment2 = MultipartBody.Part.createFormData("job_attachments_2", file.name, jobAttachment1)
                 }
                 var fileJobAttachment3: MultipartBody.Part? = null
                 if (files[2] != "") {
                     val file = File(files[2])
                     val jobAttachment1 = RequestBody.create(MediaType.parse("image/*"), file)
-                    fileJobAttachment3 = MultipartBody.Part.createFormData("job_attachments_1", file.name, jobAttachment1)
+                    fileJobAttachment3 = MultipartBody.Part.createFormData("job_attachments_3", file.name, jobAttachment1)
                 }
 
                 val response = api.completeWork(
@@ -178,7 +181,7 @@ interface IMyWorkRepository {
 
     suspend fun completeWork(
         moveToPendingReq: MoveToPendingReq,
-        files: MutableList<String>,
+        fileList: MutableList<String>,
         onSuccess: OnSuccess<StartWorkResponse>,
         onError: OnError<String>
     )
