@@ -1,8 +1,9 @@
 package com.bpositive.technician.core
 
-import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.bpositive.BuildConfig
 import com.bpositive.technician.utils.BaseData.BASE_URL
+import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -43,7 +44,8 @@ class NetworkManager {
             return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseURL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
+//                .addConverterFactory(GsonConverterFactory.create())
 //                .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .build().create(serviceClass as Class<T>)
         }
