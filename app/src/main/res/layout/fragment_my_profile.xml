@@ -36,6 +36,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivLogout"
+            android:layout_width="53dp"
+            android:layout_height="53dp"
+            android:src="@drawable/ic_exit"
+            app:layout_constraintBottom_toBottomOf="@id/ivProfileImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tlUserFirstName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

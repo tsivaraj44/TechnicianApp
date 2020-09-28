@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bpositive.R
 import com.bpositive.technician.BaseFragment
 import com.bpositive.technician.core.PreferenceManager
@@ -77,6 +78,10 @@ class MyProfileFragment : BaseFragment() {
 
         btnChangePassword.setOnClickListener {
             changePassword()
+        }
+        ivLogout.setOnClickListener {
+            PreferenceManager(requireContext()).saveTechnicianId(0)
+            findNavController().navigate(R.id.loginFragment)
         }
 
         btnSaveProfile.setOnClickListener {

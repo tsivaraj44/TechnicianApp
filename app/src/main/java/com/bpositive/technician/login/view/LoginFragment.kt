@@ -98,6 +98,8 @@ class LoginFragment : BaseFragment() {
                 activity?.toast(it.message.toString())
                 etOtp.isEnabled = true
                 etPhoneNo.isEnabled = false
+                etPhoneNo.visibility = View.GONE
+                etOtp.visibility = View.VISIBLE
                 btnSignIn.tag = "1"
                 etOtp.setText(it.otp.toString())
                 btnSignIn.text = getString(R.string.action_verify_otp)
@@ -113,7 +115,8 @@ class LoginFragment : BaseFragment() {
             reqVerifyOtp = ReqVerifyOtp(
                 mobileNumber = etPhoneNo.text.toString(),
                 countryCode = "+91",
-                otp = etOtp.text.toString()
+                otp = etOtp.text.toString(),
+                deviceToken = PreferenceManager(requireContext()).getToken()
             ), onSuccess = {
                 pbLogin.visibility = View.GONE
                 activity?.toast(it.message.toString())

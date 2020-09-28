@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.bpositive.R
 import com.bpositive.technician.BaseFragment
 import com.bpositive.technician.core.PreferenceManager
@@ -55,6 +56,13 @@ class HomeFragment : BaseFragment(), NotificationListener {
 
         }
 
+        btnProfile.setOnClickListener {
+            findNavController().navigate(R.id.myProfileFragment)
+        }
+        btnMyWork.setOnClickListener {
+            findNavController().navigate(R.id.myWorkFragment)
+        }
+
         getSettlement()
 
     }
@@ -70,7 +78,8 @@ class HomeFragment : BaseFragment(), NotificationListener {
                     (rvSettlement?.adapter as SettlementAdapter).addSettlementList(settlement.settlementList as List<Settlement>)
                     tvNoSettlement.visibility = View.GONE
                 }
-                tvTotalAmount.text = getString(R.string.label_settlement) + " " + settlement.givenAmount.toString()
+                tvTotalAmount.text =
+                    getString(R.string.label_settlement) + " " + settlement.givenAmount.toString()
                 pbSettlement?.visibility = View.GONE
             },
             onError = {

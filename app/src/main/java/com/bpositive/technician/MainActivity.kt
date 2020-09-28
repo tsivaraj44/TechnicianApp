@@ -6,21 +6,15 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.bpositive.R
 import com.bpositive.technician.core.PreferenceManager
 import com.bpositive.technician.utils.FragmentListener
 import com.bpositive.technician.utils.toast
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity(), FragmentListener,
@@ -79,7 +73,7 @@ class MainActivity : AppCompatActivity(), FragmentListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestedOrientation = (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.content_main)
 
         setupNavigation()
 
@@ -92,23 +86,23 @@ class MainActivity : AppCompatActivity(), FragmentListener,
         toolbar.title = ""
         //  collapsingToolbar.isTitleEnabled = false
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        supportActionBar?.setDisplayShowHomeEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
         val host: NavHostFragment = supportFragmentManager
             .findFragmentById(R.id.navHostFrag) as NavHostFragment
         val navController = host.navController
 
-        appBarConfiguration = AppBarConfiguration(
+        /*appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.homeFragment
+              //  R.id.homeFragment
             ), drawerLayout
-        )
+        )*/
 
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navigationView.setupWithNavController(navController)
+        //   setupActionBarWithNavController(navController, appBarConfiguration)
+        //  navigationView.setupWithNavController(navController)
 
-        navigationView.setNavigationItemSelectedListener(this);
+//        navigationView.setNavigationItemSelectedListener(this);
         appBarLayout.addOnOffsetChangedListener(this)
 
         /*navController.addOnDestinationChangedListener { _, destination, _ ->  //3
@@ -138,15 +132,19 @@ class MainActivity : AppCompatActivity(), FragmentListener,
                     mainDomainHeaderImgLayout?.visibility = View.GONE
                     headerImages?.visibility = View.GONE*/
                     toolbar.visibility = View.VISIBLE
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    supportActionBar?.setDisplayShowHomeEnabled(false)
+                    //  drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 R.id.loginFragment -> toolbar.visibility = View.GONE
                 R.id.splashFragment -> toolbar.visibility = View.GONE
                 else -> {
+                    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                    supportActionBar?.setDisplayShowHomeEnabled(true)
                     /*mainDomainHeaderImgLayout?.visibility = View.VISIBLE
                     headerImages?.visibility = View.VISIBLE
                     mainHomeHeaderImgLayout?.visibility = View.GONE*/
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    //   drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
 //                    setHeaderImage()
                 }
@@ -193,17 +191,17 @@ class MainActivity : AppCompatActivity(), FragmentListener,
     }
 
     override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        /*if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            when (findNavController(R.id.navHostFrag).currentDestination?.id) {
-                //  R.id.homeDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.homeFragment)
-                R.id.homeFragment -> finish()
-                R.id.loginFragment -> finish()
-                R.id.workDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.action_workDetailFragment_to_myWorkFragment)
-                else -> findNavController(R.id.navHostFrag).navigateUp()
-            }
+        } else {*/
+        when (findNavController(R.id.navHostFrag).currentDestination?.id) {
+            //  R.id.homeDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.homeFragment)
+            R.id.homeFragment -> finish()
+            R.id.loginFragment -> finish()
+            R.id.workDetailFragment -> findNavController(R.id.navHostFrag).navigate(R.id.action_workDetailFragment_to_myWorkFragment)
+            else -> findNavController(R.id.navHostFrag).navigateUp()
         }
+//        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -218,7 +216,8 @@ class MainActivity : AppCompatActivity(), FragmentListener,
                 return false
             }
         }
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        //  return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+        return navController.navigateUp()
     }
 
     /*override fun onSupportNavigateUp(): Boolean {
@@ -261,7 +260,7 @@ class MainActivity : AppCompatActivity(), FragmentListener,
         }
 
         item.isCheckable = true
-        drawerLayout.closeDrawers()
+        //  drawerLayout.closeDrawers()
 
 //        drawerLayout?.closeDrawer(GravityCompat.START)
         return true
