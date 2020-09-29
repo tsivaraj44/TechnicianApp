@@ -35,5 +35,10 @@ data class Settlement(
     @SerializedName("landmark") val landmark: String? = null,
     @SerializedName("create_date") val createDate: String? = null,
     @SerializedName("visit_date") val visitDate: String? = null,
-    @SerializedName("status") val status: String? = null
+    @SerializedName("status") val status: String? = null,
+    @SerializedName("booking_id") val bookingId: String? = null,
+    @SerializedName("job_attachments_1") val jobAttachments1: String? = null,
+    @SerializedName("job_attachments_2") val jobAttachments2: String? = null,
+    @SerializedName("job_attachments_3") val jobAttachments3: String? = null,
+    val otp: String? = null
 )

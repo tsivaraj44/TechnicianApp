@@ -58,10 +58,10 @@
         android:text="@string/label_no_settlement"
         android:textSize="@dimen/size_12"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@id/rvSettlement"
+        app:layout_constraintEnd_toEndOf="@id/rvSettlement"
+        app:layout_constraintStart_toStartOf="@id/rvSettlement"
+        app:layout_constraintTop_toTopOf="@id/rvSettlement" />
 
     <ProgressBar
         android:id="@+id/pbSettlement"

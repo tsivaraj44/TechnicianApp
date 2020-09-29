@@ -41,7 +41,7 @@ class SettlementAdapter(val settlement: settlement) :
                 val data = settlementsList[position]
 
                 txt_map_listview_title.text = data.customerName
-                txt_map_listview_status.text = data.totalAmount
+                txt_map_listview_status.text = data.totalAmount + ""
                 txt_map_listview_status_info.text = data.visitDate + " " + data.visitTime
 
                 img_map_navigation.visibility = View.GONE

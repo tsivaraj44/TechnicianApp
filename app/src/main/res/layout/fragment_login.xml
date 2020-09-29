@@ -11,7 +11,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,11 +40,12 @@
                 android:hint="@string/mobile_or_email"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                app:layout_constraintBottom_toTopOf="@+id/etOtp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/taawonImageView">
-                <requestFocus/>
+                app:layout_constraintTop_toTopOf="parent">
+
+                <requestFocus />
             </androidx.appcompat.widget.AppCompatEditText>
 
             <!--<com.google.android.material.textfield.TextInputLayout
@@ -98,7 +99,6 @@
                 android:layout_marginEnd="@dimen/spacing_normal"
                 android:hint="@string/label_enter_otp"
                 android:inputType="number"
-                android:layout_marginTop="@dimen/toolbar"
                 android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

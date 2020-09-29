@@ -79,7 +79,7 @@ class HomeFragment : BaseFragment(), NotificationListener {
                     tvNoSettlement.visibility = View.GONE
                 }
                 tvTotalAmount.text =
-                    getString(R.string.label_settlement) + " " + settlement.givenAmount.toString()
+                    getString(R.string.label_settlement) + " " + settlement.totalAmount.toString()
                 pbSettlement?.visibility = View.GONE
             },
             onError = {
