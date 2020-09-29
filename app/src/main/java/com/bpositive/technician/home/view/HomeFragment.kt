@@ -76,15 +76,15 @@ class HomeFragment : BaseFragment(), NotificationListener {
             onSuccess = { settlement ->
                 if (settlement.settlementList != null && settlement.settlementList.isNotEmpty()) {
                     (rvSettlement?.adapter as SettlementAdapter).addSettlementList(settlement.settlementList as List<Settlement>)
-                    tvNoSettlement.visibility = View.GONE
+                    tvNoSettlement?.visibility = View.GONE
                 }
-                tvTotalAmount.text =
+                tvTotalAmount?.text =
                     getString(R.string.label_settlement) + " " + settlement.totalAmount.toString()
                 pbSettlement?.visibility = View.GONE
             },
             onError = {
                 activity?.toast(it)
-                tvTotalAmount.text = getString(R.string.label_settlement) + " 0.00"
+                tvTotalAmount?.text = getString(R.string.label_settlement) + " 0.00"
                 pbSettlement?.visibility = View.GONE
             })
     }
