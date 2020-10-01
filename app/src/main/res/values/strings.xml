@@ -134,7 +134,7 @@
     <string name="label_no_settlement">No settlement</string>
 
     <string name="default_notification_channel_id">123456</string>
-    <string name="action_send_otp">Send OTP</string>
+    <string name="action_send_otp">Request OTP</string>
     <string name="action_verify_otp">Verify OTP</string>
     <string name="label_wrong_number">Wrong Number</string>
 

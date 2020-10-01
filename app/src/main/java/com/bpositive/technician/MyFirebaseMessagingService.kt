@@ -28,16 +28,12 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         /*{"multicast_id":7081988626618154947,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"MismatchSenderId"}]}*/
         /*{"title":"Kiranaa-Order notification","body":"Hi User,Your order is inprogress.","sound":"default","badge":"1"}*/
 
-        remoteMessage.data.let { msg ->
-            msg.isNotEmpty().let {
-                if (it) {
-                  //  sendNotification(segregateMessage(remoteMessage), remoteMessage)
-                }
-            }
+        remoteMessage.data.isNotEmpty().let {
+            if (it)
+                sendNotification(remoteMessage.notification?.body.toString())
         }
 
         remoteMessage.notification?.let {
-            Log.d(TAG, "Message Notification Body: ${it.body}")
             sendNotification(it.body.toString())
         }
 
