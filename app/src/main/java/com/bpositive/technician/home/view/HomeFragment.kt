@@ -31,7 +31,8 @@ class HomeFragment : BaseFragment(), NotificationListener {
     private var notificationBroadCast: NotificationBroadCast? = null
 
     override fun getTitle(): String {
-        return resources.getString(R.string.app_name)
+        return PreferenceManager(requireContext()).getTechnicianName().toString()
+        //  return resources.getString(R.string.app_name)
     }
 
     override fun getShowHomeToolbar(): Boolean {

@@ -31,6 +31,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         remoteMessage.data.isNotEmpty().let {
             if (it)
                 sendNotification(remoteMessage.notification?.body.toString())
+          //  sendNotification(remoteMessage.data["body"].toString())
         }
 
         remoteMessage.notification?.let {
